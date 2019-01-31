@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="TicTacToe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KMn-gx-5K9">
+                                <rect key="frame" x="20" y="328" width="374" height="250"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="bottom" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="utn-h1-776">
+                                        <rect key="frame" x="0.0" y="0.0" width="86" height="250"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdA-cC-bVj" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="86" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Giq-16-VI0" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="66.5" width="86" height="50.5"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pn1-gR-QQ4" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="133.5" width="86" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qwg-ki-32p" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="200" width="86" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="mdA-cC-bVj" firstAttribute="top" secondItem="utn-h1-776" secondAttribute="top" id="0NS-vN-2Dt"/>
+                                            <constraint firstItem="qwg-ki-32p" firstAttribute="top" secondItem="Pn1-gR-QQ4" secondAttribute="bottom" constant="16.5" id="3DF-TM-qu3"/>
+                                            <constraint firstItem="qwg-ki-32p" firstAttribute="height" secondItem="Pn1-gR-QQ4" secondAttribute="height" id="ASk-Cy-Kdq"/>
+                                            <constraint firstItem="Giq-16-VI0" firstAttribute="width" secondItem="mdA-cC-bVj" secondAttribute="width" id="EU7-Mx-SWg"/>
+                                            <constraint firstItem="qwg-ki-32p" firstAttribute="width" secondItem="Pn1-gR-QQ4" secondAttribute="width" id="O5a-zy-XQD"/>
+                                            <constraint firstItem="Giq-16-VI0" firstAttribute="height" secondItem="mdA-cC-bVj" secondAttribute="height" id="Sba-6a-fkU"/>
+                                            <constraint firstItem="Pn1-gR-QQ4" firstAttribute="width" secondItem="Giq-16-VI0" secondAttribute="width" id="Vpa-Wx-5tg"/>
+                                            <constraint firstItem="Pn1-gR-QQ4" firstAttribute="height" secondItem="Giq-16-VI0" secondAttribute="height" id="lfo-zV-mPw"/>
+                                            <constraint firstItem="mdA-cC-bVj" firstAttribute="leading" secondItem="utn-h1-776" secondAttribute="leading" id="pGw-wh-hQW"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="bottom" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fV4-01-08S">
+                                        <rect key="frame" x="96" y="0.0" width="86" height="250"/>
+                                        <subviews>
+                                            <view tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x4s-d6-LoM" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="86" height="49.5"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVV-nj-pdE" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="66.5" width="86" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view tag="6" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhT-gY-9bv" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="133.5" width="86" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view tag="7" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61Y-mU-vSW" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="200.5" width="86" height="49.5"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="hhT-gY-9bv" firstAttribute="height" secondItem="YVV-nj-pdE" secondAttribute="height" id="Gku-dY-94n"/>
+                                            <constraint firstItem="x4s-d6-LoM" firstAttribute="trailing" secondItem="Zk7-Qb-mGT" secondAttribute="trailing" id="Gyc-v6-3vA"/>
+                                            <constraint firstItem="61Y-mU-vSW" firstAttribute="top" secondItem="hhT-gY-9bv" secondAttribute="bottom" constant="17" id="KSa-2k-Gb5"/>
+                                            <constraint firstItem="61Y-mU-vSW" firstAttribute="height" secondItem="hhT-gY-9bv" secondAttribute="height" id="Mrr-oQ-7ey"/>
+                                            <constraint firstItem="hhT-gY-9bv" firstAttribute="top" secondItem="YVV-nj-pdE" secondAttribute="bottom" constant="17" id="P4D-3G-hnN"/>
+                                            <constraint firstItem="x4s-d6-LoM" firstAttribute="leading" secondItem="Zk7-Qb-mGT" secondAttribute="leading" id="T01-DC-Gk6"/>
+                                            <constraint firstItem="YVV-nj-pdE" firstAttribute="width" secondItem="x4s-d6-LoM" secondAttribute="width" id="VJT-yz-zGb"/>
+                                            <constraint firstItem="YVV-nj-pdE" firstAttribute="height" secondItem="x4s-d6-LoM" secondAttribute="height" id="WV2-EJ-hT3"/>
+                                            <constraint firstItem="hhT-gY-9bv" firstAttribute="width" secondItem="YVV-nj-pdE" secondAttribute="width" id="iRm-PQ-JFq"/>
+                                            <constraint firstItem="61Y-mU-vSW" firstAttribute="width" secondItem="hhT-gY-9bv" secondAttribute="width" id="lER-eB-YlA"/>
+                                            <constraint firstItem="x4s-d6-LoM" firstAttribute="top" secondItem="Zk7-Qb-mGT" secondAttribute="top" id="yvd-GC-RfW"/>
+                                        </constraints>
+                                        <viewLayoutGuide key="safeArea" id="Zk7-Qb-mGT"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="bottom" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="tkK-Bt-9BD">
+                                        <rect key="frame" x="192" y="0.0" width="86" height="250"/>
+                                        <subviews>
+                                            <view tag="8" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="reJ-tu-v2N" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="86" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view tag="9" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sod-QH-1Sg" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="66.5" width="86" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view tag="10" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vsG-OS-Tor" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="133.5" width="86" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view tag="11" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dnT-5X-E00" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="200" width="86" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="reJ-tu-v2N" firstAttribute="trailing" secondItem="kD9-aq-vcn" secondAttribute="trailing" id="5D7-7p-TUT"/>
+                                            <constraint firstItem="sod-QH-1Sg" firstAttribute="height" secondItem="reJ-tu-v2N" secondAttribute="height" id="Dhn-Sd-EFN"/>
+                                            <constraint firstItem="reJ-tu-v2N" firstAttribute="leading" secondItem="kD9-aq-vcn" secondAttribute="leading" id="QqB-ks-5fw"/>
+                                            <constraint firstItem="vsG-OS-Tor" firstAttribute="height" secondItem="sod-QH-1Sg" secondAttribute="height" id="Z3a-VC-7uH"/>
+                                            <constraint firstItem="dnT-5X-E00" firstAttribute="width" secondItem="vsG-OS-Tor" secondAttribute="width" id="eTA-jv-x28"/>
+                                            <constraint firstItem="dnT-5X-E00" firstAttribute="height" secondItem="vsG-OS-Tor" secondAttribute="height" id="fUw-8Q-EAv"/>
+                                            <constraint firstItem="reJ-tu-v2N" firstAttribute="top" secondItem="kD9-aq-vcn" secondAttribute="top" id="hbQ-Lt-sky"/>
+                                            <constraint firstItem="vsG-OS-Tor" firstAttribute="width" secondItem="sod-QH-1Sg" secondAttribute="width" id="t22-zV-nub"/>
+                                            <constraint firstItem="sod-QH-1Sg" firstAttribute="width" secondItem="reJ-tu-v2N" secondAttribute="width" id="ur8-th-3U2"/>
+                                        </constraints>
+                                        <viewLayoutGuide key="safeArea" id="kD9-aq-vcn"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="bottom" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jzt-I9-1kf">
+                                        <rect key="frame" x="288" y="0.0" width="86" height="250"/>
+                                        <subviews>
+                                            <view tag="12" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M8Z-Ji-UmM" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="86" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view tag="13" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K8v-CB-FhA" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="66.5" width="86" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view tag="14" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XbP-iz-6MI" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="133.5" width="86" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view tag="15" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fQx-5M-Qk4" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="200" width="86" height="50"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="XbP-iz-6MI" firstAttribute="height" secondItem="K8v-CB-FhA" secondAttribute="height" id="4q9-TF-FZA"/>
+                                            <constraint firstItem="M8Z-Ji-UmM" firstAttribute="trailing" secondItem="0s2-Dy-fv1" secondAttribute="trailing" id="AjU-fd-f6F"/>
+                                            <constraint firstItem="fQx-5M-Qk4" firstAttribute="width" secondItem="XbP-iz-6MI" secondAttribute="width" id="DpT-hb-iia"/>
+                                            <constraint firstItem="M8Z-Ji-UmM" firstAttribute="top" secondItem="0s2-Dy-fv1" secondAttribute="top" id="Gay-qF-2z7"/>
+                                            <constraint firstItem="XbP-iz-6MI" firstAttribute="width" secondItem="K8v-CB-FhA" secondAttribute="width" id="Sfb-1i-7X5"/>
+                                            <constraint firstItem="fQx-5M-Qk4" firstAttribute="height" secondItem="XbP-iz-6MI" secondAttribute="height" id="Tk9-on-zeZ"/>
+                                            <constraint firstItem="K8v-CB-FhA" firstAttribute="height" secondItem="M8Z-Ji-UmM" secondAttribute="height" id="ZwP-Gp-lPd"/>
+                                            <constraint firstItem="M8Z-Ji-UmM" firstAttribute="leading" secondItem="0s2-Dy-fv1" secondAttribute="leading" id="hSz-Gt-Q8i"/>
+                                            <constraint firstItem="K8v-CB-FhA" firstAttribute="width" secondItem="M8Z-Ji-UmM" secondAttribute="width" id="nsB-Wv-ZG7"/>
+                                        </constraints>
+                                        <viewLayoutGuide key="safeArea" id="0s2-Dy-fv1"/>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="KMn-gx-5K9" secondAttribute="height" multiplier="335:224" id="rza-AJ-ho5"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="KMn-gx-5K9" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="10R-e3-gJn"/>
+                            <constraint firstAttribute="trailing" secondItem="KMn-gx-5K9" secondAttribute="trailing" constant="20" id="JBw-Di-gUl"/>
+                            <constraint firstItem="KMn-gx-5K9" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="P4l-XF-nSi"/>
+                            <constraint firstItem="KMn-gx-5K9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="W8n-Sr-UxX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outletCollection property="collection" destination="M8Z-Ji-UmM" collectionClass="NSMutableArray" id="1GF-ok-Wvk"/>
+                        <outletCollection property="collection" destination="K8v-CB-FhA" collectionClass="NSMutableArray" id="Pq9-V9-87A"/>
+                        <outletCollection property="collection" destination="XbP-iz-6MI" collectionClass="NSMutableArray" id="0PI-SX-IAI"/>
+                        <outletCollection property="collection" destination="fQx-5M-Qk4" collectionClass="NSMutableArray" id="J2D-Mf-xor"/>
+                        <outletCollection property="collection" destination="reJ-tu-v2N" collectionClass="NSMutableArray" id="Ykp-la-Ip7"/>
+                        <outletCollection property="collection" destination="sod-QH-1Sg" collectionClass="NSMutableArray" id="YBG-cJ-uaH"/>
+                        <outletCollection property="collection" destination="vsG-OS-Tor" collectionClass="NSMutableArray" id="3Lr-rj-Ddx"/>
+                        <outletCollection property="collection" destination="dnT-5X-E00" collectionClass="NSMutableArray" id="Wfe-aC-8EM"/>
+                        <outletCollection property="collection" destination="x4s-d6-LoM" collectionClass="NSMutableArray" id="Com-hB-zUF"/>
+                        <outletCollection property="collection" destination="YVV-nj-pdE" collectionClass="NSMutableArray" id="mnG-5a-0zi"/>
+                        <outletCollection property="collection" destination="hhT-gY-9bv" collectionClass="NSMutableArray" id="ACe-et-iUd"/>
+                        <outletCollection property="collection" destination="61Y-mU-vSW" collectionClass="NSMutableArray" id="zQ5-B5-hDw"/>
+                        <outletCollection property="collection" destination="mdA-cC-bVj" collectionClass="NSMutableArray" id="UNQ-Sc-KBq"/>
+                        <outletCollection property="collection" destination="Giq-16-VI0" collectionClass="NSMutableArray" id="OEi-sL-aiS"/>
+                        <outletCollection property="collection" destination="Pn1-gR-QQ4" collectionClass="NSMutableArray" id="un6-aS-8fW"/>
+                        <outletCollection property="collection" destination="qwg-ki-32p" collectionClass="NSMutableArray" id="mOr-zS-dCJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-159.19999999999999" y="-102.09895052473765"/>
+        </scene>
+    </scenes>
+</document>
