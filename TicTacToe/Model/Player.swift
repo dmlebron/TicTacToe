@@ -26,11 +26,18 @@ enum Mark {
 
 // MARK: - PlayerModel
 final class Player {
+    enum Turn {
+        case first
+        case second
+    }
+    
     let mark: Mark
     let moves: [Moves] = []
+    let turn: Turn
     
-    init(mark: Mark) {
+    init(mark: Mark, turn: Turn) {
         self.mark = mark
+        self.turn = turn
     }
 }
 
