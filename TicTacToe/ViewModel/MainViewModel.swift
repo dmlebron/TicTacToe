@@ -11,7 +11,7 @@ import Foundation
 protocol MainViewModelInput {
     var output: MainViewModelOutput? { get }
     
-    func viewDidLoad()
+    mutating func viewDidLoad()
     mutating func tapped(objectData: CustomView.ObjectData?) throws -> CustomView.ObjectData
 }
 
@@ -26,14 +26,27 @@ struct MainViewModel {
         case badData
     }
     
+    enum ViewState {
+        case initial(player1: Player, player2: Player)
+        case changed(playerTurn: Player, playCount: Int)
+    }
+    
     weak var output: MainViewModelOutput?
     
-    private(set) var player1 = Player(mark: .x)
-    private(set) var player2 = Player(mark: .o)
-    private(set) var playCount = 0
+    private(set) var player1 = Player(mark: .x, turn: .first)
+    private(set) var player2 = Player(mark: .o, turn: .second)
+    private var playCount = 0
+    private var viewStateCompletion: (ViewState) -> Void
+    private var state: ViewState? {
+        didSet {
+            guard let state = state else { return }
+            viewStateCompletion(state)
+        }
+    }
     
-    init(output: MainViewModelOutput) {
+    init(output: MainViewModelOutput, completion: @escaping (ViewState) -> Void) {
         self.output = output
+        self.viewStateCompletion = completion
     }
     
     var currentPlayer: Player {
@@ -61,8 +74,8 @@ private extension MainViewModel {
 
 // MARK: - MainViewModelInput
 extension MainViewModel: MainViewModelInput {
-    func viewDidLoad() {
-        
+    mutating func viewDidLoad() {
+        state = .initial(player1: player1, player2: player2)
     }
     
     mutating func tapped(objectData: CustomView.ObjectData?) throws -> CustomView.ObjectData {

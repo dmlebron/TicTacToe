@@ -16,7 +16,7 @@ enum Mark {
     case x
     case o
     
-    var image: UIImage? {
+    fileprivate var image: UIImage? {
         switch self {
         case .o: return UIImage.o
         case .x: return UIImage.x
@@ -38,6 +38,10 @@ final class Player {
     init(mark: Mark, turn: Turn) {
         self.mark = mark
         self.turn = turn
+    }
+    
+    var image: UIImage {
+        return mark.image!
     }
 }
 

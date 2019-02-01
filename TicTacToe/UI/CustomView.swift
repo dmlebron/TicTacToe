@@ -48,7 +48,7 @@ final class CustomView: UIControl {
     
     func setup(objectData: ObjectData) {
         self.objectData = objectData
-        imageView.image = objectData.player.mark.image
+        imageView.image = objectData.player.image
     }
 }
 

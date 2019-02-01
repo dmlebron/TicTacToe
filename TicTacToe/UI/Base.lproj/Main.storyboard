@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_5" orientation="portrait">
+    <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -20,37 +20,61 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tLh-xo-hUI">
-                                <rect key="frame" x="20" y="64" width="374" height="45"/>
+                                <rect key="frame" x="20" y="64" width="374" height="75"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="99" translatesAutoresizingMaskIntoConstraints="NO" id="j77-cP-dEp">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="99" translatesAutoresizingMaskIntoConstraints="NO" id="j77-cP-dEp">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="75"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osl-HJ-Azq">
-                                                <rect key="frame" x="0.0" y="0.0" width="100.66666666666667" height="45"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player 2" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPo-BU-BdN">
-                                                <rect key="frame" x="199.66666666666663" y="0.0" width="174.33333333333337" height="45"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pMQ-H0-mNb">
+                                                <rect key="frame" x="0.0" y="0.0" width="137.5" height="70.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osl-HJ-Azq">
+                                                        <rect key="frame" x="39.5" y="0.0" width="59" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lru-Id-8K7">
+                                                        <rect key="frame" x="44" y="20.5" width="50" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="47z-S0-oU4"/>
+                                                            <constraint firstAttribute="height" constant="50" id="cBC-tP-ksZ"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KDL-pJ-Qss">
+                                                <rect key="frame" x="236.5" y="0.0" width="137.5" height="70.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player 2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPo-BU-BdN">
+                                                        <rect key="frame" x="38" y="0.0" width="61.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6eK-nH-N3v">
+                                                        <rect key="frame" x="44" y="20.5" width="50" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="K8T-yP-4YI"/>
+                                                            <constraint firstAttribute="width" constant="50" id="PJ5-Y7-Tf3"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="j77-cP-dEp" firstAttribute="leading" secondItem="tLh-xo-hUI" secondAttribute="leading" id="VGR-RW-eMM"/>
-                                    <constraint firstAttribute="height" constant="45" id="gyD-lr-628"/>
+                                    <constraint firstAttribute="height" constant="75" id="gyD-lr-628"/>
                                     <constraint firstItem="j77-cP-dEp" firstAttribute="top" secondItem="tLh-xo-hUI" secondAttribute="top" id="kgQ-jW-3Lh"/>
                                     <constraint firstAttribute="trailing" secondItem="j77-cP-dEp" secondAttribute="trailing" id="kvv-Ek-0vP"/>
                                     <constraint firstAttribute="bottom" secondItem="j77-cP-dEp" secondAttribute="bottom" id="nuO-op-8v8"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KMn-gx-5K9">
-                                <rect key="frame" x="32" y="129" width="350" height="344"/>
+                                <rect key="frame" x="32" y="159" width="350" height="344"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uFz-mE-Bwp">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="344"/>
@@ -97,28 +121,28 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Zgg-Yj-tL1">
                                         <rect key="frame" x="90" y="0.0" width="80" height="344"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="STd-mm-jhZ" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                            <view tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="STd-mm-jhZ" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="STd-mm-jhZ" secondAttribute="height" multiplier="1:1" id="Sro-o7-CUQ"/>
                                                 </constraints>
                                             </view>
-                                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Aw-Hs-nmM" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                            <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Aw-Hs-nmM" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="88" width="80" height="80"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="5Aw-Hs-nmM" secondAttribute="height" multiplier="1:1" id="P4D-ci-xIc"/>
                                                 </constraints>
                                             </view>
-                                            <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ASA-xx-mDO" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                            <view tag="6" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ASA-xx-mDO" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="176" width="80" height="80"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ASA-xx-mDO" secondAttribute="height" multiplier="1:1" id="N3s-IS-4LP"/>
                                                 </constraints>
                                             </view>
-                                            <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Zk-tN-phJ" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                            <view tag="7" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Zk-tN-phJ" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="264" width="80" height="80"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -139,28 +163,28 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Sdj-Qq-O80">
                                         <rect key="frame" x="180" y="0.0" width="80" height="344"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9fh-yG-CG4" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                            <view tag="8" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9fh-yG-CG4" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="9fh-yG-CG4" secondAttribute="height" multiplier="1:1" id="wbb-JY-21v"/>
                                                 </constraints>
                                             </view>
-                                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UdR-cw-eIb" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                            <view tag="9" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UdR-cw-eIb" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="88" width="80" height="80"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="UdR-cw-eIb" secondAttribute="height" multiplier="1:1" id="v1b-mg-GxB"/>
                                                 </constraints>
                                             </view>
-                                            <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKZ-9r-DMD" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                            <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKZ-9r-DMD" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="176" width="80" height="80"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="cKZ-9r-DMD" secondAttribute="height" multiplier="1:1" id="abo-57-ibo"/>
                                                 </constraints>
                                             </view>
-                                            <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0PY-BC-0SJ" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                            <view tag="11" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0PY-BC-0SJ" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="264" width="80" height="80"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -181,28 +205,28 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="utn-h1-776">
                                         <rect key="frame" x="270" y="0.0" width="80" height="344"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdA-cC-bVj" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                            <view tag="12" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdA-cC-bVj" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="mdA-cC-bVj" secondAttribute="height" multiplier="1:1" id="qc8-jV-WgE"/>
                                                 </constraints>
                                             </view>
-                                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Giq-16-VI0" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                            <view tag="13" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Giq-16-VI0" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="88" width="80" height="80"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Giq-16-VI0" secondAttribute="height" multiplier="1:1" id="13d-SG-OD2"/>
                                                 </constraints>
                                             </view>
-                                            <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pn1-gR-QQ4" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                            <view tag="14" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pn1-gR-QQ4" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="176" width="80" height="80"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Pn1-gR-QQ4" secondAttribute="height" multiplier="1:1" id="32U-Os-zbg"/>
                                                 </constraints>
                                             </view>
-                                            <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qwg-ki-32p" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
+                                            <view tag="15" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qwg-ki-32p" customClass="CustomView" customModule="TicTacToe" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="264" width="80" height="80"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -241,10 +265,26 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="player1IconImage" destination="Lru-Id-8K7" id="MVY-HM-qXe"/>
+                        <outlet property="player1Label" destination="osl-HJ-Azq" id="0Vy-r7-Vcg"/>
+                        <outlet property="player2IconImage" destination="6eK-nH-N3v" id="ORG-3G-KHi"/>
+                        <outlet property="player2Label" destination="oPo-BU-BdN" id="tzu-S0-Z2T"/>
                         <outletCollection property="collection" destination="mdA-cC-bVj" collectionClass="NSMutableArray" id="UNQ-Sc-KBq"/>
                         <outletCollection property="collection" destination="Giq-16-VI0" collectionClass="NSMutableArray" id="OEi-sL-aiS"/>
                         <outletCollection property="collection" destination="Pn1-gR-QQ4" collectionClass="NSMutableArray" id="un6-aS-8fW"/>
                         <outletCollection property="collection" destination="qwg-ki-32p" collectionClass="NSMutableArray" id="mOr-zS-dCJ"/>
+                        <outletCollection property="collection" destination="9fh-yG-CG4" collectionClass="NSMutableArray" id="OZB-af-VX0"/>
+                        <outletCollection property="collection" destination="UdR-cw-eIb" collectionClass="NSMutableArray" id="1OD-Kt-6bH"/>
+                        <outletCollection property="collection" destination="cKZ-9r-DMD" collectionClass="NSMutableArray" id="kzy-el-cL0"/>
+                        <outletCollection property="collection" destination="0PY-BC-0SJ" collectionClass="NSMutableArray" id="IkN-3d-YBZ"/>
+                        <outletCollection property="collection" destination="0Zk-tN-phJ" collectionClass="NSMutableArray" id="qD9-7p-uxN"/>
+                        <outletCollection property="collection" destination="ASA-xx-mDO" collectionClass="NSMutableArray" id="NXD-fP-OAT"/>
+                        <outletCollection property="collection" destination="5Aw-Hs-nmM" collectionClass="NSMutableArray" id="4e8-qr-UBb"/>
+                        <outletCollection property="collection" destination="STd-mm-jhZ" collectionClass="NSMutableArray" id="FA2-4R-L6K"/>
+                        <outletCollection property="collection" destination="hQg-gg-roy" collectionClass="NSMutableArray" id="CYq-qb-Tg3"/>
+                        <outletCollection property="collection" destination="xY8-Fk-eQP" collectionClass="NSMutableArray" id="nlX-qV-iVJ"/>
+                        <outletCollection property="collection" destination="ZGZ-vO-846" collectionClass="NSMutableArray" id="d6F-kT-ofY"/>
+                        <outletCollection property="collection" destination="F1t-tM-PLv" collectionClass="NSMutableArray" id="Xdo-iQ-bVC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
