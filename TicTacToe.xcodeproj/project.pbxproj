@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4697465A2206164200C57175 /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469746592206164200C57175 /* ModuleBuilder.swift */; };
 		46BA574A2201500B0009C087 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BA57492201500B0009C087 /* AppDelegate.swift */; };
 		46BA574C2201500B0009C087 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BA574B2201500B0009C087 /* MainViewController.swift */; };
 		46BA574F2201500B0009C087 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46BA574D2201500B0009C087 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		469746592206164200C57175 /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
 		46BA57462201500B0009C087 /* TicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46BA57492201500B0009C087 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46BA574B2201500B0009C087 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				46BA57492201500B0009C087 /* AppDelegate.swift */,
+				469746592206164200C57175 /* ModuleBuilder.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				46BA574C2201500B0009C087 /* MainViewController.swift in Sources */,
 				46BA574A2201500B0009C087 /* AppDelegate.swift in Sources */,
 				46BA576C220150770009C087 /* Player.swift in Sources */,
+				4697465A2206164200C57175 /* ModuleBuilder.swift in Sources */,
 				46BA576A220150250009C087 /* MainViewModel.swift in Sources */,
 				46BA577A220158780009C087 /* UIImage+App.swift in Sources */,
 			);

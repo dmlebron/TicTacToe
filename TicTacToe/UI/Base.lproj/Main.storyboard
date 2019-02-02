@@ -22,20 +22,20 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tLh-xo-hUI">
                                 <rect key="frame" x="20" y="64" width="374" height="75"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="99" translatesAutoresizingMaskIntoConstraints="NO" id="j77-cP-dEp">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="j77-cP-dEp">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="75"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pMQ-H0-mNb">
-                                                <rect key="frame" x="0.0" y="0.0" width="137.5" height="70.5"/>
+                                                <rect key="frame" x="0.0" y="2.5" width="90.5" height="70.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osl-HJ-Azq">
-                                                        <rect key="frame" x="39.5" y="0.0" width="59" height="20.5"/>
+                                                        <rect key="frame" x="15.5" y="0.0" width="59" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lru-Id-8K7">
-                                                        <rect key="frame" x="44" y="20.5" width="50" height="50"/>
+                                                        <rect key="frame" x="20" y="20.5" width="50" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="50" id="47z-S0-oU4"/>
                                                             <constraint firstAttribute="height" constant="50" id="cBC-tP-ksZ"/>
@@ -43,17 +43,28 @@
                                                     </imageView>
                                                 </subviews>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9Ju-g8-Lsg">
+                                                <rect key="frame" x="90.5" y="27.5" width="189" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Player Turn" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACK-zW-mZ7">
+                                                        <rect key="frame" x="0.0" y="0.0" width="189" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KDL-pJ-Qss">
-                                                <rect key="frame" x="236.5" y="0.0" width="137.5" height="70.5"/>
+                                                <rect key="frame" x="279.5" y="2.5" width="94.5" height="70.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player 2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPo-BU-BdN">
-                                                        <rect key="frame" x="38" y="0.0" width="61.5" height="20.5"/>
+                                                        <rect key="frame" x="16.5" y="0.0" width="61.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6eK-nH-N3v">
-                                                        <rect key="frame" x="44" y="20.5" width="50" height="50"/>
+                                                        <rect key="frame" x="22.5" y="20.5" width="50" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="K8T-yP-4YI"/>
                                                             <constraint firstAttribute="width" constant="50" id="PJ5-Y7-Tf3"/>
@@ -265,10 +276,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="player1IconImage" destination="Lru-Id-8K7" id="MVY-HM-qXe"/>
+                        <outlet property="player1IconImageView" destination="Lru-Id-8K7" id="otg-6S-J9H"/>
                         <outlet property="player1Label" destination="osl-HJ-Azq" id="0Vy-r7-Vcg"/>
-                        <outlet property="player2IconImage" destination="6eK-nH-N3v" id="ORG-3G-KHi"/>
+                        <outlet property="player2IconImageView" destination="6eK-nH-N3v" id="pUp-sZ-7KF"/>
                         <outlet property="player2Label" destination="oPo-BU-BdN" id="tzu-S0-Z2T"/>
+                        <outlet property="playerTurnLabel" destination="ACK-zW-mZ7" id="yJA-LY-UcC"/>
                         <outletCollection property="collection" destination="mdA-cC-bVj" collectionClass="NSMutableArray" id="UNQ-Sc-KBq"/>
                         <outletCollection property="collection" destination="Giq-16-VI0" collectionClass="NSMutableArray" id="OEi-sL-aiS"/>
                         <outletCollection property="collection" destination="Pn1-gR-QQ4" collectionClass="NSMutableArray" id="un6-aS-8fW"/>

@@ -29,6 +29,13 @@ final class Player {
     enum Turn {
         case firstPlayer
         case secondPlayer
+        
+        var string: String {
+            switch self {
+            case .firstPlayer: return "First Player Turn"
+            case .secondPlayer: return "Second Player Turn"
+            }
+        }
     }
     
     let mark: Mark

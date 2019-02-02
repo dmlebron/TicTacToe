@@ -8,26 +8,17 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, MainViewModelOutput {
 
     // TODO: rename
     @IBOutlet var collection: [CustomView]!
-    @IBOutlet var player1IconImage: UIImageView!
-    @IBOutlet var player2IconImage: UIImageView!
+    @IBOutlet var player1IconImageView: UIImageView!
+    @IBOutlet var player2IconImageView: UIImageView!
     @IBOutlet var player1Label: UILabel!
     @IBOutlet var player2Label: UILabel!
+    @IBOutlet weak var playerTurnLabel: UILabel!
     
-    private lazy var viewModel: MainViewModel = {
-        return MainViewModel(output: self) { [weak self] (viewState) in
-            guard let strongSelf = self else { return }
-            switch viewState {
-            case .initial(let player1, let player2):
-                strongSelf.handleViewStateInitial(player1, player2)
-            case .changed(let player, let playCount, let view):
-                strongSelf.handleViewStateChanged(player, playCount, view: view)
-            }
-        }
-    }()
+    var viewModel: MainViewModelInput!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,29 +28,55 @@ class MainViewController: UIViewController {
         }
     }
     
-    @objc func tapped(customView: CustomView) {
-        do {
-            try viewModel.tapped(objectData: customView.objectData, customView: customView)
-        } catch {
-            
+    var playerTurnString: String = "" {
+        didSet {
+            playerTurnLabel.text = playerTurnString
+        }
+    }
+    var playCount: Int = 0 {
+        didSet {
+            print("Play Count is Now: \(playCount)")
+        }
+    }
+    var player1IconImage: UIImage = UIImage() {
+        didSet {
+            player1IconImageView.image = player1IconImage
+        }
+    }
+    
+    var player2IconImage: UIImage = UIImage() {
+        didSet {
+            player2IconImageView.image = player2IconImage
+        }
+    }
+    
+    var error: Error? {
+        didSet {
+            print(error?.localizedDescription ?? "Nada")
+        }
+    }
+    
+    var selectedView: MainViewModel.SelectedView? {
+        didSet {
+            guard let selectedView = selectedView else { return }
+            let view = collection
+                .filter { $0.identifier == selectedView.viewIdentifier }
+                .first
+            view?.isSelected = selectedView.isSelected
+            view?.image = selectedView.image
         }
     }
 }
 
-private extension MainViewController {
-    func handleViewStateInitial(_ player1: Player, _ player2: Player) {
-        player1IconImage.image = player1.image
-        player2IconImage.image = player2.image
+@objc extension MainViewController {
+    func tapped(customView: CustomView) {
+        viewModel.tapped(isSelected: customView.isSelected, viewIdentifier: customView.identifier)
     }
-    
+}
+
+private extension MainViewController {
     func handleViewStateChanged(_ player: Player, _ playCount: Int, view: CustomView) {
         let object = CustomView.ObjectData(player: player, isSelected: true)
         view.setup(objectData: object)
     }
-}
-
-
-// MARK: - MainViewModelOutput
-extension MainViewController: MainViewModelOutput {
-    
 }

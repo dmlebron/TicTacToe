@@ -25,7 +25,7 @@ final class CustomView: UIControl {
         return objectData?.player.mark
     }
     
-    var locationValue: Int {
+    var identifier: Int {
         return tag
     }
     
@@ -35,6 +35,12 @@ final class CustomView: UIControl {
         view.contentMode = .scaleAspectFit
         return view
     }()
+    
+    var image: UIImage? {
+        didSet {
+            imageView.image = image
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -9,16 +9,17 @@
 import UIKit
 
 protocol MainViewModelInput {
-    var output: MainViewModelOutput? { get }
-    
     mutating func viewDidLoad()
-    mutating func tapped(objectData: CustomView.ObjectData?, customView: CustomView?) throws
+    mutating func tapped(isSelected: Bool, viewIdentifier: Int)
 }
 
 protocol MainViewModelOutput: class {
-//    func turn(player: String)
-//    func playCount(_ playCount: Int)
-//    func icon(player1: Player, player2: Player)
+    var playerTurnString: String { get set }
+    var playCount: Int { get set }
+    var player1IconImage: UIImage { get set }
+    var player2IconImage: UIImage { get set }
+    var error: Error? { get set }
+    var selectedView: MainViewModel.SelectedView? { get set }
 }
 
 struct MainViewModel {
@@ -29,63 +30,74 @@ struct MainViewModel {
         case badData
     }
     
-    enum ViewState {
-        case initial(player1: Player, player2: Player)
-        case changed(playerTurn: Player, playCount: Int, customView: CustomView)
+    struct SelectedView {
+        let viewIdentifier: Int
+        let image: UIImage?
+        let isSelected: Bool
     }
     
     weak var output: MainViewModelOutput?
     
-    private(set) var player1 = Player(mark: .x, turn: .firstPlayer)
-    private(set) var player2 = Player(mark: .o, turn: .secondPlayer)
-    private var playCount = 0
-    private var viewStateCompletion: (ViewState) -> Void
-    private var viewState: ViewState? {
+    private var player1 = Player(mark: .x, turn: .firstPlayer)
+    private var player2 = Player(mark: .o, turn: .secondPlayer)
+    private var currentPlayer: Player? {
         didSet {
-            guard let viewState = viewState else { return }
-            viewStateCompletion(viewState)
+            guard let currentPlayer = currentPlayer else { return }
+            output?.playerTurnString = currentPlayer.turn.string
+        }
+    }
+    private var playCount = 0 {
+        didSet {
+            output?.playCount = playCount
         }
     }
     
-    init(output: MainViewModelOutput, completion: @escaping (ViewState) -> Void) {
+    init(output: MainViewModelOutput) {
         self.output = output
-        self.viewStateCompletion = completion
-    }
-    
-    var currentPlayer: Player {
-        return playCount % 2 == 0 ? player2 : player1
-    }
-    
-    var nextPlayer: Player {
-        return playCount % 2 != 0 ? player2 : player1
     }
 }
 
 // MARK: - Private Methods
 private extension MainViewModel {
-    func isSpaceAvailable(objectData: CustomView.ObjectData?) throws {
-        guard let objectData = objectData else { return }
-        if objectData.isSelected {
+    func isLocationSelected(_ isSelected: Bool) throws {
+        if isSelected {
             throw Error.spaceNotAvailable
         }
     }
     
-    mutating func addPlayCount() {
+    mutating func logPlay(viewIdentifier: Int) {
         playCount += 1
+        output?.selectedView = SelectedView(viewIdentifier: viewIdentifier,
+                                                  image: currentPlayer?.image,
+                                                  isSelected: true)
+        currentPlayer = togglePlayerTurn()
+    }
+    
+    mutating func togglePlayerTurn() -> Player {
+        return currentPlayer == player1 ? player2 : player1
+    }
+    
+    mutating func reset() {
+        output?.player1IconImage = player1.image
+        output?.player2IconImage = player2.image
+        playCount = 0
+        currentPlayer = player1
     }
 }
 
 // MARK: - MainViewModelInput
 extension MainViewModel: MainViewModelInput {
     mutating func viewDidLoad() {
-        viewState = .initial(player1: player1, player2: player2)
+        reset()
     }
     
-    mutating func tapped(objectData: CustomView.ObjectData?, customView: CustomView?) throws {
-        try isSpaceAvailable(objectData: objectData)
-        guard let customView = customView else { throw Error.noSpaceSelected }
-        addPlayCount()
-        let player = currentPlayer
-        viewState = ViewState.changed(playerTurn: player, playCount: playCount, customView: customView)
+    mutating func tapped(isSelected: Bool, viewIdentifier: Int) {
+        do {
+            try isLocationSelected(isSelected)
+            logPlay(viewIdentifier: viewIdentifier)
+            
+        } catch {
+            output?.error = error
+        }
     }
 }
