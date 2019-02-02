@@ -23,8 +23,8 @@ class MainViewController: UIViewController {
             switch viewState {
             case .initial(let player1, let player2):
                 strongSelf.handleViewStateInitial(player1, player2)
-            case .changed(let player, let playCount):
-                strongSelf.handleViewStateChanged(player, playCount)
+            case .changed(let player, let playCount, let view):
+                strongSelf.handleViewStateChanged(player, playCount, view: view)
             }
         }
     }()
@@ -39,7 +39,7 @@ class MainViewController: UIViewController {
     
     @objc func tapped(customView: CustomView) {
         do {
-            try viewModel.tapped(objectData: customView.objectData)
+            try viewModel.tapped(objectData: customView.objectData, customView: customView)
         } catch {
             
         }
@@ -52,8 +52,9 @@ private extension MainViewController {
         player2IconImage.image = player2.image
     }
     
-    func handleViewStateChanged(_ player: Player, _ playCount: Int) {
-        
+    func handleViewStateChanged(_ player: Player, _ playCount: Int, view: CustomView) {
+        let object = CustomView.ObjectData(player: player, isSelected: true)
+        view.setup(objectData: object)
     }
 }
 

@@ -12,7 +12,7 @@ protocol MainViewModelInput {
     var output: MainViewModelOutput? { get }
     
     mutating func viewDidLoad()
-    mutating func tapped(objectData: CustomView.ObjectData?) throws
+    mutating func tapped(objectData: CustomView.ObjectData?, customView: CustomView?) throws
 }
 
 protocol MainViewModelOutput: class {
@@ -25,12 +25,13 @@ struct MainViewModel {
     
     enum Error: Swift.Error {
         case spaceNotAvailable
+        case noSpaceSelected
         case badData
     }
     
     enum ViewState {
         case initial(player1: Player, player2: Player)
-        case changed(playerTurn: Player, playCount: Int)
+        case changed(playerTurn: Player, playCount: Int, customView: CustomView)
     }
     
     weak var output: MainViewModelOutput?
@@ -80,10 +81,11 @@ extension MainViewModel: MainViewModelInput {
         viewState = .initial(player1: player1, player2: player2)
     }
     
-    mutating func tapped(objectData: CustomView.ObjectData?) throws {
+    mutating func tapped(objectData: CustomView.ObjectData?, customView: CustomView?) throws {
         try isSpaceAvailable(objectData: objectData)
+        guard let customView = customView else { throw Error.noSpaceSelected }
         addPlayCount()
         let player = currentPlayer
-        viewState = ViewState.changed(playerTurn: player, playCount: playCount)
+        viewState = ViewState.changed(playerTurn: player, playCount: playCount, customView: customView)
     }
 }
