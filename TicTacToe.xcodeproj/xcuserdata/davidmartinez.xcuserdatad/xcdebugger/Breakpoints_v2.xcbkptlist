@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicTacToe/ViewController/MainViewController.swift"
-            timestampString = "570595813.722208"
+            timestampString = "570766250.425052"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
             endingLineNumber = "27"
-            landmarkName = "tapped(customView:)"
-            landmarkType = "7">
+            landmarkName = "viewModel"
+            landmarkType = "24">
             <Actions>
                <BreakpointActionProxy
                   ActionExtensionID = "Xcode.BreakpointAction.Log">

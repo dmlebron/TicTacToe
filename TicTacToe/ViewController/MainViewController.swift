@@ -39,8 +39,7 @@ class MainViewController: UIViewController {
     
     @objc func tapped(customView: CustomView) {
         do {
-            let objectData = try viewModel.tapped(objectData: customView.objectData)
-            customView.setup(objectData: objectData)
+            try viewModel.tapped(objectData: customView.objectData)
         } catch {
             
         }

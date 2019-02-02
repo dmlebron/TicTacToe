@@ -6,17 +6,19 @@
 //  Copyright © 2019 dmlebron. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol MainViewModelInput {
     var output: MainViewModelOutput? { get }
     
     mutating func viewDidLoad()
-    mutating func tapped(objectData: CustomView.ObjectData?) throws -> CustomView.ObjectData
+    mutating func tapped(objectData: CustomView.ObjectData?) throws
 }
 
 protocol MainViewModelOutput: class {
-    
+//    func turn(player: String)
+//    func playCount(_ playCount: Int)
+//    func icon(player1: Player, player2: Player)
 }
 
 struct MainViewModel {
@@ -33,14 +35,14 @@ struct MainViewModel {
     
     weak var output: MainViewModelOutput?
     
-    private(set) var player1 = Player(mark: .x, turn: .first)
-    private(set) var player2 = Player(mark: .o, turn: .second)
+    private(set) var player1 = Player(mark: .x, turn: .firstPlayer)
+    private(set) var player2 = Player(mark: .o, turn: .secondPlayer)
     private var playCount = 0
     private var viewStateCompletion: (ViewState) -> Void
-    private var state: ViewState? {
+    private var viewState: ViewState? {
         didSet {
-            guard let state = state else { return }
-            viewStateCompletion(state)
+            guard let viewState = viewState else { return }
+            viewStateCompletion(viewState)
         }
     }
     
@@ -75,13 +77,13 @@ private extension MainViewModel {
 // MARK: - MainViewModelInput
 extension MainViewModel: MainViewModelInput {
     mutating func viewDidLoad() {
-        state = .initial(player1: player1, player2: player2)
+        viewState = .initial(player1: player1, player2: player2)
     }
     
-    mutating func tapped(objectData: CustomView.ObjectData?) throws -> CustomView.ObjectData {
+    mutating func tapped(objectData: CustomView.ObjectData?) throws {
         try isSpaceAvailable(objectData: objectData)
         addPlayCount()
         let player = currentPlayer
-        return CustomView.ObjectData(player: player, isSelected: true)
+        viewState = ViewState.changed(playerTurn: player, playCount: playCount)
     }
 }
