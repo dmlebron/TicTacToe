@@ -22,6 +22,11 @@ protocol MainViewModelOutput: class {
     var selectedViewObservable: ((MainViewModel.SelectedView?) -> Void)? { get set }
 }
 
+protocol MainViewModelOutputObserver {
+    var viewModel: MainViewModelInput! { get set }
+    func bindViewModel(_ input: MainViewModelInput, output: inout MainViewModelOutput)
+}
+
 final class MainViewModel: MainViewModelOutput {
     var playerTurnString: ((String) -> Void)?
     var player1IconImage: ((UIImage) -> Void)?

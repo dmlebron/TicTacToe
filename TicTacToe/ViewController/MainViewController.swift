@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var player1Label: UILabel!
     @IBOutlet weak var player2Label: UILabel!
     @IBOutlet weak var playerTurnLabel: UILabel!
-    private var viewModel: MainViewModelInput!
+    var viewModel: MainViewModelInput!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,9 @@ class MainViewController: UIViewController {
             col.addTarget(self, action: #selector(tapped(customView:)), for: .touchUpInside)
         }
     }
+}
 
+extension MainViewController: MainViewModelOutputObserver {
     func bindViewModel(_ input: MainViewModelInput, output: inout MainViewModelOutput) {
         self.viewModel = input
         output.player1IconImage = { [weak self] (image) in

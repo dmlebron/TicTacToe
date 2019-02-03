@@ -9,7 +9,7 @@
 import UIKit
 @testable import TicTacToe
 
-class MockMainViewController {
+class MockMainViewController: MainViewModelOutputObserver {
     
     var viewModel: MainViewModelInput!
     
@@ -18,8 +18,8 @@ class MockMainViewController {
     var didCallPlayerTurnString: String?
     var didCallPlayCount: Int?
     var didCallSelectedView: MainViewModel.SelectedView?
-    func bindViewModel(_ viewModel: MainViewModelInput, output: inout MainViewModelOutput) {
-        self.viewModel = viewModel
+    func bindViewModel(_ input: MainViewModelInput, output: inout MainViewModelOutput) {
+        self.viewModel = input
         output.player1IconImage = { (image) in
             self.didCallPlayer1Icon = image
         }
