@@ -31,18 +31,8 @@ class MainViewController: UIViewController, MainViewModelOutput {
     var playerTurnString: ((String) -> Void)!
     var player1IconImage: ((UIImage) -> Void)!
     var player2IconImage: ((UIImage) -> Void)!
-
-    var playCount: Int = 0 {
-        didSet {
-            print("Play Count is Now: \(playCount)")
-        }
-    }
-    
-    var error: Error? {
-        didSet {
-            print(error?.localizedDescription ?? "Nada")
-        }
-    }
+    var playCount: ((Int) -> Void)!
+    var error: ((Error) -> Void)!
     
     var selectedView: MainViewModel.SelectedView? {
         didSet {
@@ -66,6 +56,14 @@ class MainViewController: UIViewController, MainViewModelOutput {
         
         playerTurnString = { [weak self] (value) in
             self?.playerTurnLabel.text = value
+        }
+        
+        playCount = { (value) in
+            print("Play Count: \(value)")
+        }
+        
+        error = { (value) in
+            print("Error: \(value)")
         }
     }
 }

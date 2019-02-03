@@ -17,8 +17,8 @@ protocol MainViewModelOutput: class {
     var playerTurnString: ((String) -> Void)! { get set }
     var player1IconImage: ((UIImage) -> Void)! { get set }
     var player2IconImage: ((UIImage) -> Void)! { get set }
-    var playCount: Int { get set }
-    var error: Error? { get set }
+    var playCount: ((Int) -> Void)! { get set }
+    var error: ((Error) -> Void)! { get set }
     var selectedView: MainViewModel.SelectedView? { get set }
 }
 
@@ -48,7 +48,7 @@ struct MainViewModel {
     }
     private var playCount = 0 {
         didSet {
-            output?.playCount = playCount
+            output?.playCount(playCount)
         }
     }
     
@@ -97,7 +97,7 @@ extension MainViewModel: MainViewModelInput {
             logPlay(viewIdentifier: viewIdentifier)
             
         } catch {
-            output?.error = error
+            output?.error(error)
         }
     }
 }
