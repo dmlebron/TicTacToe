@@ -28,25 +28,13 @@ class MainViewController: UIViewController, MainViewModelOutput {
         }
     }
     
-    var playerTurnString: String = "" {
-        didSet {
-            playerTurnLabel.text = playerTurnString
-        }
-    }
+    var playerTurnString: ((String) -> Void)!
+    var player1IconImage: ((UIImage) -> Void)!
+    var player2IconImage: ((UIImage) -> Void)!
+
     var playCount: Int = 0 {
         didSet {
             print("Play Count is Now: \(playCount)")
-        }
-    }
-    var player1IconImage: UIImage = UIImage() {
-        didSet {
-            player1IconImageView.image = player1IconImage
-        }
-    }
-    
-    var player2IconImage: UIImage = UIImage() {
-        didSet {
-            player2IconImageView.image = player2IconImage
         }
     }
     
@@ -66,6 +54,20 @@ class MainViewController: UIViewController, MainViewModelOutput {
             view?.image = selectedView.image
         }
     }
+
+    func bindViewModel() {
+        player1IconImage = { [weak self] (image) in
+            self?.player1IconImageView.image = image
+        }
+        
+        player2IconImage = { [weak self] (image) in
+            self?.player2IconImageView.image = image
+        }
+        
+        playerTurnString = { [weak self] (value) in
+            self?.playerTurnLabel.text = value
+        }
+    }
 }
 
 @objc extension MainViewController {
@@ -79,4 +81,6 @@ private extension MainViewController {
         let object = CustomView.ObjectData(player: player, isSelected: true)
         view.setup(objectData: object)
     }
+    
+
 }

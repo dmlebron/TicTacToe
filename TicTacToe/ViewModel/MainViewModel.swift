@@ -14,10 +14,10 @@ protocol MainViewModelInput {
 }
 
 protocol MainViewModelOutput: class {
-    var playerTurnString: String { get set }
+    var playerTurnString: ((String) -> Void)! { get set }
+    var player1IconImage: ((UIImage) -> Void)! { get set }
+    var player2IconImage: ((UIImage) -> Void)! { get set }
     var playCount: Int { get set }
-    var player1IconImage: UIImage { get set }
-    var player2IconImage: UIImage { get set }
     var error: Error? { get set }
     var selectedView: MainViewModel.SelectedView? { get set }
 }
@@ -43,7 +43,7 @@ struct MainViewModel {
     private var currentPlayer: Player? {
         didSet {
             guard let currentPlayer = currentPlayer else { return }
-            output?.playerTurnString = currentPlayer.turn.string
+            output?.playerTurnString(currentPlayer.turn.string)
         }
     }
     private var playCount = 0 {
@@ -78,8 +78,8 @@ private extension MainViewModel {
     }
     
     mutating func reset() {
-        output?.player1IconImage = player1.image
-        output?.player2IconImage = player2.image
+        output?.player1IconImage(player1.image)
+        output?.player2IconImage?(player2.image)
         playCount = 0
         currentPlayer = player1
     }

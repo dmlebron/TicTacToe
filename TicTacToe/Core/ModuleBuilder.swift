@@ -20,6 +20,7 @@ struct ModuleBuilder {
         
         let viewModel = MainViewModel(output: viewController)
         viewController.viewModel = viewModel
+        viewController.bindViewModel()
         
         return viewController
     }
