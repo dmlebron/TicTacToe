@@ -8,17 +8,16 @@
 
 import UIKit
 
-class MainViewController: UIViewController, MainViewModelOutput {
+class MainViewController: UIViewController {
 
     // TODO: rename
     @IBOutlet var collection: [CustomView]!
-    @IBOutlet var player1IconImageView: UIImageView!
-    @IBOutlet var player2IconImageView: UIImageView!
-    @IBOutlet var player1Label: UILabel!
-    @IBOutlet var player2Label: UILabel!
+    @IBOutlet weak var player1IconImageView: UIImageView!
+    @IBOutlet weak var player2IconImageView: UIImageView!
+    @IBOutlet weak var player1Label: UILabel!
+    @IBOutlet weak var player2Label: UILabel!
     @IBOutlet weak var playerTurnLabel: UILabel!
-    
-    var viewModel: MainViewModelInput!
+    private var viewModel: MainViewModelInput!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,45 +26,27 @@ class MainViewController: UIViewController, MainViewModelOutput {
             col.addTarget(self, action: #selector(tapped(customView:)), for: .touchUpInside)
         }
     }
-    
-    var playerTurnString: ((String) -> Void)!
-    var player1IconImage: ((UIImage) -> Void)!
-    var player2IconImage: ((UIImage) -> Void)!
 
-    var playCount: Int = 0 {
-        didSet {
-            print("Play Count is Now: \(playCount)")
-        }
-    }
-    
-    var error: Error? {
-        didSet {
-            print(error?.localizedDescription ?? "Nada")
-        }
-    }
-    
-    var selectedView: MainViewModel.SelectedView? {
-        didSet {
-            guard let selectedView = selectedView else { return }
-            let view = collection
-                .filter { $0.identifier == selectedView.viewIdentifier }
-                .first
-            view?.isSelected = selectedView.isSelected
-            view?.image = selectedView.image
-        }
-    }
-
-    func bindViewModel() {
-        player1IconImage = { [weak self] (image) in
+    func bindViewModel(_ input: MainViewModelInput, output: inout MainViewModelOutput) {
+        self.viewModel = input
+        output.player1IconImage = { [weak self] (image) in
             self?.player1IconImageView.image = image
         }
         
-        player2IconImage = { [weak self] (image) in
+        output.player2IconImage = { [weak self] (image) in
             self?.player2IconImageView.image = image
         }
         
-        playerTurnString = { [weak self] (value) in
+        output.playerTurnString = { [weak self] (value) in
             self?.playerTurnLabel.text = value
+        }
+        
+        output.playCountObservable = { (value) in
+            print("Play Count: \(value)")
+        }
+        
+        output.selectedViewObservable = { [weak self] (value) in
+            self?.handleSelectedView(value)
         }
     }
 }
@@ -77,10 +58,12 @@ class MainViewController: UIViewController, MainViewModelOutput {
 }
 
 private extension MainViewController {
-    func handleViewStateChanged(_ player: Player, _ playCount: Int, view: CustomView) {
-        let object = CustomView.ObjectData(player: player, isSelected: true)
-        view.setup(objectData: object)
+    func handleSelectedView(_ selectedView: MainViewModel.SelectedView?) {
+        guard let selectedView = selectedView else { return }
+        let view = collection
+            .filter { $0.identifier == selectedView.viewIdentifier }
+            .first
+        view?.isSelected = selectedView.isSelected
+        view?.image = selectedView.image
     }
-    
-
 }

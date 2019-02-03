@@ -18,9 +18,9 @@ struct ModuleBuilder {
     static func MainModule() -> MainViewController {
         let viewController = UIStoryboard.main.instantiateInitialViewController() as! MainViewController
         
-        let viewModel = MainViewModel(output: viewController)
-        viewController.viewModel = viewModel
-        viewController.bindViewModel()
+        let viewModel = MainViewModel()
+        var output: MainViewModelOutput = viewModel
+        viewController.bindViewModel(viewModel, output: &output)
         
         return viewController
     }

@@ -16,18 +16,19 @@ class MainViewModelTests: XCTestCase {
     
     override func setUp() {
         mockViewController = MockMainViewController()
+        viewModel = MainViewModel()
+        var output: MainViewModelOutput = viewModel
+        mockViewController.bindViewModel(viewModel, output: &output)
     }
     
-    func test_Turn_NonPairValue_Player1() throws {
-        viewModel = MainViewModel(output: mockViewController) { (state) in
-            switch state {
-            case .changed(let player, let playCount, _):
-                XCTAssertTrue(playCount == 1)
-                XCTAssertTrue(player.turn == .firstPlayer)
-            default: XCTFail()
-            }
-        }
-        try viewModel.tapped(objectData: nil, customView: nil)
+    func test_ViewDidLoad_InitialValues() {
+        viewModel.viewDidLoad()
+        let playerString = Player(mark: .o, turn: .firstPlayer).turn.string
+        
+        XCTAssertNotNil(mockViewController.didCallPlayer1Icon)
+        XCTAssertNotNil(mockViewController.didCallPlayer2Icon)
+        XCTAssertFalse(mockViewController.didCallPlayer1Icon == mockViewController.didCallPlayer2Icon)
+        XCTAssertTrue(mockViewController.didCallPlayerTurnString == playerString)
     }
     
 //    func test_Turn_PairValue_Player2() throws {

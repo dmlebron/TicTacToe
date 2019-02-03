@@ -9,20 +9,26 @@
 import UIKit
 
 protocol MainViewModelInput {
-    mutating func viewDidLoad()
-    mutating func tapped(isSelected: Bool, viewIdentifier: Int)
+    func viewDidLoad()
+    func tapped(isSelected: Bool, viewIdentifier: Int)
 }
 
 protocol MainViewModelOutput: class {
-    var playerTurnString: ((String) -> Void)! { get set }
-    var player1IconImage: ((UIImage) -> Void)! { get set }
-    var player2IconImage: ((UIImage) -> Void)! { get set }
-    var playCount: Int { get set }
-    var error: Error? { get set }
-    var selectedView: MainViewModel.SelectedView? { get set }
+    var playerTurnString: ((String) -> Void)? { get set }
+    var player1IconImage: ((UIImage) -> Void)? { get set }
+    var player2IconImage: ((UIImage) -> Void)? { get set }
+    var playCountObservable: ((Int) -> Void)? { get set }
+    var errorObservable: ((Swift.Error) -> Void)? { get set }
+    var selectedViewObservable: ((MainViewModel.SelectedView?) -> Void)? { get set }
 }
 
-struct MainViewModel {
+final class MainViewModel: MainViewModelOutput {
+    var playerTurnString: ((String) -> Void)?
+    var player1IconImage: ((UIImage) -> Void)?
+    var player2IconImage: ((UIImage) -> Void)?
+    var errorObservable: ((Swift.Error) -> Void)?
+    var playCountObservable: ((Int) -> Void)?
+    var selectedViewObservable: ((MainViewModel.SelectedView?) -> Void)?
     
     enum Error: Swift.Error {
         case spaceNotAvailable
@@ -36,24 +42,22 @@ struct MainViewModel {
         let isSelected: Bool
     }
     
-    weak var output: MainViewModelOutput?
+    var output: MainViewModelOutput {
+        return self
+    }
     
     private var player1 = Player(mark: .x, turn: .firstPlayer)
     private var player2 = Player(mark: .o, turn: .secondPlayer)
     private var currentPlayer: Player? {
         didSet {
             guard let currentPlayer = currentPlayer else { return }
-            output?.playerTurnString(currentPlayer.turn.string)
+            output.playerTurnString?(currentPlayer.turn.string)
         }
     }
     private var playCount = 0 {
         didSet {
-            output?.playCount = playCount
+            output.playCountObservable?(playCount)
         }
-    }
-    
-    init(output: MainViewModelOutput) {
-        self.output = output
     }
 }
 
@@ -65,21 +69,22 @@ private extension MainViewModel {
         }
     }
     
-    mutating func logPlay(viewIdentifier: Int) {
+    func logPlay(viewIdentifier: Int) {
         playCount += 1
-        output?.selectedView = SelectedView(viewIdentifier: viewIdentifier,
-                                                  image: currentPlayer?.image,
-                                                  isSelected: true)
+        let selectedView = SelectedView(viewIdentifier: viewIdentifier,
+                                        image: currentPlayer?.image,
+                                        isSelected: true)
+        output.selectedViewObservable?(selectedView)
         currentPlayer = togglePlayerTurn()
     }
     
-    mutating func togglePlayerTurn() -> Player {
+    func togglePlayerTurn() -> Player {
         return currentPlayer == player1 ? player2 : player1
     }
     
-    mutating func reset() {
-        output?.player1IconImage(player1.image)
-        output?.player2IconImage?(player2.image)
+    func reset() {
+        output.player1IconImage?(player1.image)
+        output.player2IconImage?(player2.image)
         playCount = 0
         currentPlayer = player1
     }
@@ -87,17 +92,17 @@ private extension MainViewModel {
 
 // MARK: - MainViewModelInput
 extension MainViewModel: MainViewModelInput {
-    mutating func viewDidLoad() {
+    func viewDidLoad() {
         reset()
     }
     
-    mutating func tapped(isSelected: Bool, viewIdentifier: Int) {
+    func tapped(isSelected: Bool, viewIdentifier: Int) {
         do {
             try isLocationSelected(isSelected)
             logPlay(viewIdentifier: viewIdentifier)
             
         } catch {
-            output?.error = error
+            output.errorObservable?(error)
         }
     }
 }
