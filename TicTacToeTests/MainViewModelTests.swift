@@ -17,11 +17,17 @@ class MainViewModelTests: XCTestCase {
     override func setUp() {
         mockViewController = MockMainViewController()
         viewModel = MainViewModel(output: mockViewController)
+        mockViewController.bindViewModel()
     }
     
     func test_ViewDidLoad_InitialValues() {
         viewModel.viewDidLoad()
+        let playerString = Player(mark: .o, turn: .firstPlayer).turn.string
         
+        XCTAssertNotNil(mockViewController.didCallPlayer1Icon)
+        XCTAssertNotNil(mockViewController.didCallPlayer2Icon)
+        XCTAssertFalse(mockViewController.didCallPlayer1Icon == mockViewController.didCallPlayer2Icon)
+        XCTAssertTrue(mockViewController.didCallPlayerTurnString == playerString)
     }
     
 //    func test_Turn_PairValue_Player2() throws {

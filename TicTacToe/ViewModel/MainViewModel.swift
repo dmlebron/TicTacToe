@@ -20,6 +20,7 @@ protocol MainViewModelOutput: class {
     var playCount: ((Int) -> Void)! { get set }
     var error: ((Error) -> Void)! { get set }
     var selectedView: MainViewModel.SelectedView? { get set }
+    func bindViewModel()
 }
 
 struct MainViewModel {
@@ -79,7 +80,7 @@ private extension MainViewModel {
     
     mutating func reset() {
         output?.player1IconImage(player1.image)
-        output?.player2IconImage?(player2.image)
+        output?.player2IconImage(player2.image)
         playCount = 0
         currentPlayer = player1
     }
