@@ -28,23 +28,23 @@ class MainViewController: UIViewController, MainViewModelOutput {
         }
     }
     
-    var playerTurnString: String = "" {
+    var playerTurnString: String? {
         didSet {
             playerTurnLabel.text = playerTurnString
         }
     }
-    var playCount: Int = 0 {
+    var playCount: Int? {
         didSet {
-            print("Play Count is Now: \(playCount)")
+            print("Play Count is Now: \(playCount!)")
         }
     }
-    var player1IconImage: UIImage = UIImage() {
+    var player1IconImage: UIImage? {
         didSet {
             player1IconImageView.image = player1IconImage
         }
     }
     
-    var player2IconImage: UIImage = UIImage() {
+    var player2IconImage: UIImage? {
         didSet {
             player2IconImageView.image = player2IconImage
         }

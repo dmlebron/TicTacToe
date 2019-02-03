@@ -14,10 +14,10 @@ protocol MainViewModelInput {
 }
 
 protocol MainViewModelOutput: class {
-    var playerTurnString: String { get set }
-    var playCount: Int { get set }
-    var player1IconImage: UIImage { get set }
-    var player2IconImage: UIImage { get set }
+    var playerTurnString: String? { get set }
+    var playCount: Int? { get set }
+    var player1IconImage: UIImage? { get set }
+    var player2IconImage: UIImage? { get set }
     var error: Error? { get set }
     var selectedView: MainViewModel.SelectedView? { get set }
 }
