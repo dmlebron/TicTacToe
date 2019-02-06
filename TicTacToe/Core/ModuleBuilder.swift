@@ -17,8 +17,9 @@ extension UIStoryboard {
 struct ModuleBuilder {
     static func MainModule() -> MainViewController {
         let viewController = UIStoryboard.main.instantiateInitialViewController() as! MainViewController
-        
-        let viewModel = MainViewModel()
+        let player1 = Player(mark: .x, turn: .firstPlayer)
+        let player2 = Player(mark: .o, turn: .secondPlayer)
+        let viewModel = try! MainViewModel(player1: player1, player2: player2)
         var output: MainViewModelOutput = viewModel
         viewController.bindViewModel(viewModel, output: &output)
         

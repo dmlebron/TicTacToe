@@ -8,8 +8,8 @@
 
 import UIKit
 
-typealias Move = Int
-typealias Moves = [Int]
+typealias Location = Int
+typealias Locations = [Int]
 
 // MARK: - Mark
 enum Mark {
@@ -39,7 +39,7 @@ final class Player {
     }
     
     let mark: Mark
-    let moves: [Moves] = []
+    var locations: Locations = []
     let turn: Turn
     
     init(mark: Mark, turn: Turn) {
@@ -54,7 +54,7 @@ final class Player {
 
 extension Player: Equatable {
     static func == (lhs: Player, rhs: Player) -> Bool {
-        guard lhs.mark == rhs.mark, lhs.moves == rhs.moves else { return false }
+        guard lhs.mark == rhs.mark, lhs.locations == rhs.locations else { return false }
         return true
     }
 }

@@ -18,6 +18,7 @@ class MockMainViewController: MainViewModelOutputObserver {
     var didCallPlayerTurnString: String?
     var didCallPlayCount: Int?
     var didCallSelectedView: MainViewModel.SelectedView?
+    var didCallGameEnded: MainViewModel.Game.State?
     func bindViewModel(_ input: MainViewModelInput, output: inout MainViewModelOutput) {
         self.viewModel = input
         output.player1IconImage = { (image) in
@@ -38,6 +39,10 @@ class MockMainViewController: MainViewModelOutputObserver {
         
         output.selectedViewObservable = { (value) in
             self.didCallSelectedView = value
+        }
+        
+        output.showGameEndedAlert = { (value) in
+            self.didCallGameEnded = value
         }
     }
 }
