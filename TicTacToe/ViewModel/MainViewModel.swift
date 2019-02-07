@@ -60,8 +60,8 @@ final class MainViewModel: MainViewModelOutput {
     
     struct Game {
         enum Constant {
-            static let minimumLocationValue: Location = 0
-            static let maxLocationValue: Location = 15
+            static let minimumLocationValue: Move = 0
+            static let maxLocationValue: Move = 15
         }
         
         enum State: Equatable {
@@ -72,7 +72,7 @@ final class MainViewModel: MainViewModelOutput {
         enum WinningCombination: Equatable {
             case topDiagonal
             
-            var locations: Locations {
+            var locations: Moves {
                 switch self {
                 case .topDiagonal: return [0, 5, 10, 15]
                 }

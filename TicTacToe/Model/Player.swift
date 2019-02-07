@@ -8,8 +8,8 @@
 
 import UIKit
 
-typealias Location = Int
-typealias Locations = [Int]
+typealias Move = Int
+typealias Moves = [Int]
 
 // MARK: - Mark
 enum Mark {
@@ -39,7 +39,7 @@ final class Player {
     }
     
     let mark: Mark
-    var locations: Locations = []
+    var locations: Moves = []
     let turn: Turn
     
     init(mark: Mark, turn: Turn) {
