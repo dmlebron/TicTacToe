@@ -19,6 +19,8 @@ class MockMainViewController: MainViewModelOutputObserver {
     var didCallPlayCount: Int?
     var didCallSelectedView: MainViewModel.SelectedView?
     var didCallGameEnded: MainViewModel.Game.State?
+    var didCallResetAllLocations: Bool?
+    var didCallErrorObservable: MainViewModel.Error?
     func bindViewModel(_ input: MainViewModelInput, output: inout MainViewModelOutput) {
         self.viewModel = input
         output.player1IconImage = { (image) in
@@ -43,6 +45,14 @@ class MockMainViewController: MainViewModelOutputObserver {
         
         output.showGameEndedAlert = { (value) in
             self.didCallGameEnded = value
+        }
+        
+        output.resetAllLocations = {
+            self.didCallResetAllLocations = true
+        }
+        
+        output.errorObservable = { (value) in
+            self.didCallErrorObservable = value
         }
     }
 }

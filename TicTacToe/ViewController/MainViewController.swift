@@ -50,6 +50,22 @@ extension MainViewController: MainViewModelOutputObserver {
         output.selectedViewObservable = { [weak self] (value) in
             self?.handleSelectedView(value)
         }
+        
+        output.showGameEndedAlert = { [weak self] (value) in
+            let alert = UIAlertController(title: "Test", message: nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "Reset", style: .destructive, handler: { (_) in
+                self?.viewModel.tappedReset()
+            })
+            alert.addAction(action)
+            self?.present(alert, animated: true, completion: nil)
+        }
+        
+        output.resetAllLocations = {
+            for location in self.collection {
+                location.isSelected = false
+                location.image = nil
+            }
+        }
     }
 }
 

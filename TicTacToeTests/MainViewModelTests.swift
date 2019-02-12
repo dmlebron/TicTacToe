@@ -47,18 +47,22 @@ class MainViewModelTests: XCTestCase {
         XCTAssertNotNil(mockViewController.didCallPlayer2Icon)
         XCTAssertFalse(mockViewController.didCallPlayer1Icon == mockViewController.didCallPlayer2Icon)
         XCTAssertTrue(mockViewController.didCallPlayerTurnString == player1.turn.string)
+        XCTAssertNil(mockViewController.didCallErrorObservable)
     }
     
     func test_Tapped_ValidLocation_UpdatePlayer() {
         let viewIdentifier = 9
         viewModel.tapped(isSelected: false, viewIdentifier: viewIdentifier)
-        XCTAssertTrue(player1.locations.count > 0)
+        XCTAssertTrue(mockViewController.didCallPlayerTurnString == player2.turn.string)
+        XCTAssertTrue(player1.locations.count == 1)
+        XCTAssertNotNil(mockViewController.didCallSelectedView?.image == player1.image)
         XCTAssertTrue(mockViewController.didCallPlayerTurnString == player2.turn.string)
         
         let viewIdentifier2 = 0
         viewModel.tapped(isSelected: false, viewIdentifier: viewIdentifier2)
         XCTAssertTrue(player2.locations.count > 0)
         XCTAssertTrue(mockViewController.didCallPlayerTurnString == player1.turn.string)
+        XCTAssertNil(mockViewController.didCallErrorObservable)
     }
     
     func test_Tapped_SelectedLocation_NotUpdatePlayer() {
@@ -70,6 +74,7 @@ class MainViewModelTests: XCTestCase {
         let viewIdentifier2 = 9
         viewModel.tapped(isSelected: true, viewIdentifier: viewIdentifier2)
         XCTAssertFalse(player2.locations.count > 0)
+        XCTAssertTrue(mockViewController.didCallErrorObservable?.localizedDescription == MainViewModel.Error.locationNotAvailable.localizedDescription)
     }
     
     func test_Tapped_InvalidLocation_LessThan0_NotUpdatePlayer() {
@@ -77,6 +82,7 @@ class MainViewModelTests: XCTestCase {
         viewModel.tapped(isSelected: false, viewIdentifier: viewIdentifier)
         XCTAssertFalse(player1.locations.count > 0)
         XCTAssertFalse(mockViewController.didCallPlayerTurnString == player2.turn.string)
+        XCTAssertTrue(mockViewController.didCallErrorObservable?.localizedDescription == MainViewModel.Error.notValidLocation.localizedDescription)
     }
     
     func test_Tapped_InvalidLocation_GreaterThan15_NotUpdatePlayer() {
@@ -84,14 +90,20 @@ class MainViewModelTests: XCTestCase {
         viewModel.tapped(isSelected: false, viewIdentifier: viewIdentifier)
         XCTAssertFalse(player1.locations.count > 0)
         XCTAssertFalse(mockViewController.didCallPlayerTurnString == player2.turn.string)
+        XCTAssertTrue(mockViewController.didCallErrorObservable?.localizedDescription == MainViewModel.Error.notValidLocation.localizedDescription)
     }
     
     func test_Tapped_GameFinished_AllMoves_NoWinner() {
-        for move in 0...15 {
+        for move in 0...MainViewModel.Game.Constant.maxMoves - 1 {
             viewModel.tapped(isSelected: false, viewIdentifier: move)
         }
         let gameEnded = mockViewController.didCallGameEnded!
+        
+        XCTAssertTrue(player1.locations.count == 8)
+        XCTAssertTrue(player2.locations.count == 8)
+        XCTAssertNil(mockViewController.didCallErrorObservable)
         XCTAssertTrue(gameEnded == MainViewModel.Game.State.tie)
+        
     }
 
     func test_Tapped_GameFinished_Winner_TopDiagonalCombination() {
@@ -116,60 +128,14 @@ class MainViewModelTests: XCTestCase {
         XCTAssertTrue(gameEnded == MainViewModel.Game.State.winner(.topDiagonal, player1))
     }
     
-//    func test_Turn_PairValue_Player2() throws {
-//        // first turn
-//        _ = try viewModel.tapped(objectData: nil)
-//        // second turn
-//        let object = try viewModel.tapped(objectData: nil)
-//        XCTAssertTrue(viewModel.playCount == 2)
-//        XCTAssertTrue(object.player == viewModel.player2)
-//    }
-//
-//    func test_Turn_PairValue_Player2_SpaceAvailable() throws {
-//        let player = Player(mark: .x, turn: .first)
-//        let data = CustomView.ObjectData(player: player, isSelected: false)
-//        // first turn
-//        _ = try viewModel.tapped(objectData: data)
-//        // second turn
-//        let object = try viewModel.tapped(objectData: data)
-//        XCTAssertTrue(viewModel.playCount == 2)
-//        XCTAssertTrue(object.player == viewModel.player2)
-//    }
-//
-//    func test_Turn_PairValue_Player2_SpaceNotAvailable() throws {
-//        // first turn
-//        let object = try viewModel.tapped(objectData: nil)
-//        // second turn
-//        XCTAssertThrowsError(try viewModel.tapped(objectData: object))
-//        XCTAssertTrue(viewModel.playCount == 1)
-//        XCTAssertTrue(object.player == viewModel.player1)
-//    }
-//
-//    func test_Turn_PairValue_Player1_SpaceNotAvailable() throws {
-//        // first turn
-//        let object = try viewModel.tapped(objectData: nil)
-//        // second turn
-//        _ = try viewModel.tapped(objectData: nil)
-//        // third turn
-//        XCTAssertThrowsError(try viewModel.tapped(objectData: object))
-//        XCTAssertTrue(viewModel.playCount == 2)
-//        XCTAssertTrue(object.player == viewModel.player1)
-//    }
-//
-//    func test_NextPlayer_FirstTurn_Player1() {
-//        let playerTurn = viewModel.nextPlayer
-//        let playCount = viewModel.playCount
-//
-//        XCTAssertTrue(playCount == 0)
-//        XCTAssertTrue(playerTurn == viewModel.player1)
-//    }
-//
-//    func test_NextPlayer_SecondTurn_Player2() throws {
-//        _ = try viewModel.tapped(objectData: nil)
-//        let playerTurn = viewModel.nextPlayer
-//        let playCount = viewModel.playCount
-//
-//        XCTAssertTrue(playCount == 1)
-//        XCTAssertTrue(playerTurn == viewModel.player2)
-//    }
+    func test_Reset_Clean() {
+        for move in 0...15 {
+            viewModel.tapped(isSelected: false, viewIdentifier: move)
+        }
+        _ = mockViewController.didCallGameEnded!
+        viewModel.tappedReset()
+        XCTAssertTrue(mockViewController.didCallResetAllLocations!)
+        XCTAssertTrue(player1.locations.count == 0)
+        XCTAssertTrue(player2.locations.count == 0)
+    }
 }
