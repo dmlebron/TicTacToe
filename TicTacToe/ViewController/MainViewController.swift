@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var player1Label: UILabel!
     @IBOutlet weak var player2Label: UILabel!
     @IBOutlet weak var playerTurnLabel: UILabel!
-    var viewModel: MainViewModelInput!
+    private var viewModel: MainViewModelInput!
     
     override func viewDidLoad() {
         super.viewDidLoad()

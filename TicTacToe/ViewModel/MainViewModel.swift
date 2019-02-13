@@ -27,7 +27,6 @@ protocol MainViewModelOutput: class {
 }
 
 protocol MainViewModelOutputObserver {
-    var viewModel: MainViewModelInput! { get set }
     func bindViewModel(_ input: MainViewModelInput, output: inout MainViewModelOutput)
 }
 
