@@ -8,6 +8,14 @@
 
 import UIKit
 
+extension MainViewController {
+    struct SelectedView {
+        let viewIdentifier: Int
+        let image: UIImage?
+        let isSelected: Bool
+    }
+}
+
 class MainViewController: UIViewController {
 
     // TODO: rename
@@ -52,16 +60,31 @@ extension MainViewController: MainViewModelOutputObserver {
         }
         
         output.showGameStateObservable = { [weak self] (value) in
+            let alert = UIAlertController(title: value.description, message: nil, preferredStyle: .alert)
+            let action = UIAlertAction(title: "Reset", style: .default, handler: { (_) in
+                self?.viewModel.tappedReset()
+            })
+            alert.addAction(action)
+            self?.present(alert, animated: true, completion: nil)
+            
             
             switch value {
-            case .tie, .winner(_, _):
-                let alert = UIAlertController(title: "Test", message: nil, preferredStyle: .alert)
-                let action = UIAlertAction(title: "Reset", style: .destructive, handler: { (_) in
-                    self?.viewModel.tappedReset()
-                })
-                alert.addAction(action)
-                self?.present(alert, animated: true, completion: nil)
-                
+//            case .tie:
+//                let alert = UIAlertController(title: value.description, message: nil, preferredStyle: .alert)
+//                let action = UIAlertAction(title: "Reset", style: .default, handler: { (_) in
+//                    self?.viewModel.tappedReset()
+//                })
+//                alert.addAction(action)
+//                self?.present(alert, animated: true, completion: nil)
+//
+//            case .winner(_, let player):
+//                let alert = UIAlertController(title: value.description, message: nil, preferredStyle: .alert)
+//                let action = UIAlertAction(title: "Reset", style: .default, handler: { (_) in
+//                    self?.viewModel.tappedReset()
+//                })
+//                alert.addAction(action)
+//                self?.present(alert, animated: true, completion: nil)
+            case .tie, .winner(_, _): break
             case .reset:
                 guard let moves = self?.collection else { return }
                 for location in moves {
@@ -75,12 +98,12 @@ extension MainViewController: MainViewModelOutputObserver {
 
 @objc extension MainViewController {
     func tapped(customView: CustomView) {
-        viewModel.tapped(isSelected: customView.isSelected, viewIdentifier: customView.identifier)
+        viewModel.tapped(viewIdentifier: customView.identifier)
     }
 }
 
 private extension MainViewController {
-    func handleSelectedView(_ selectedView: MainViewModel.SelectedView?) {
+    func handleSelectedView(_ selectedView: SelectedView?) {
         guard let selectedView = selectedView else { return }
         let view = collection
             .filter { $0.identifier == selectedView.viewIdentifier }

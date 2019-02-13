@@ -11,7 +11,7 @@ import UIKit
 protocol MainViewModelInput {
     func viewDidLoad()
     // TODO: Remove isSelected
-    func tapped(isSelected: Bool, viewIdentifier: Int)
+    func tapped(viewIdentifier: Int)
     func tappedReset()
 }
 
@@ -21,8 +21,8 @@ protocol MainViewModelOutput: class {
     var player2IconObservable: ((UIImage) -> Void)? { get set }
     var playCountObservable: ((Int) -> Void)? { get set }
     var errorObservable: ((MainViewModel.Error) -> Void)? { get set }
-    var selectedViewObservable: ((MainViewModel.SelectedView?) -> Void)? { get set }
-    var showGameStateObservable: ((MainViewModel.Game.State) -> Void)? { get set }
+    var selectedViewObservable: ((MainViewController.SelectedView?) -> Void)? { get set }
+    var showGameStateObservable: ((MainViewModel.GameState) -> Void)? { get set }
 }
 
 protocol MainViewModelOutputObserver {
@@ -30,13 +30,32 @@ protocol MainViewModelOutputObserver {
 }
 
 final class MainViewModel: MainViewModelOutput {
+    typealias SelectedView = MainViewController.SelectedView
+    
+    enum GameState: Equatable {
+        case winner(Game.WinningCombination, Player)
+        case tie
+        case reset
+        
+        var description: String {
+            switch self {
+            case .winner(_, let player):
+                return "\(player.turn.string) Won!"
+            case .tie:
+                return "No Winner"
+            case .reset:
+                return ""
+            }
+        }
+    }
+    
     var playerTurnObservable: ((String) -> Void)?
     var player1IconObservable: ((UIImage) -> Void)?
     var player2IconObservable: ((UIImage) -> Void)?
     var errorObservable: ((Error) -> Void)?
     var playCountObservable: ((Int) -> Void)?
     var selectedViewObservable: ((SelectedView?) -> Void)?
-    var showGameStateObservable: ((Game.State) -> Void)?
+    var showGameStateObservable: ((GameState) -> Void)?
     
     private var playCount = 0 {
         didSet {
@@ -53,36 +72,6 @@ final class MainViewModel: MainViewModelOutput {
         
         var localizedDescription: String {
             return String(describing: self)
-        }
-    }
-    
-    struct SelectedView {
-        let viewIdentifier: Int
-        let image: UIImage?
-        let isSelected: Bool
-    }
-    
-    struct Game {
-        enum Constant {
-            static let minimumLocationValue: Location = 0
-            static let maxLocationValue: Location = 15
-            static let maxMoves = 16
-        }
-        
-        enum State: Equatable {
-            case winner(WinningCombination, Player)
-            case tie
-            case reset
-        }
-        
-        enum WinningCombination: Equatable {
-            case topDiagonal
-            
-            var locations: Locations {
-                switch self {
-                case .topDiagonal: return [0, 5, 10, 15]
-                }
-            }
         }
     }
     
@@ -114,24 +103,24 @@ private extension MainViewModel {
             throw Error.notValidLocation
         }
         
-        if player1.locations.contains(viewIdentifier) || player2.locations.contains(viewIdentifier) {
+        if player1.moves.contains(viewIdentifier) || player2.moves.contains(viewIdentifier) {
             throw Error.locationNotAvailable
         }
     }
     
-    func evaluateGame() {
-        if let winnerCombination = hasWinningCombination(.topDiagonal, player: player1) {
+    func evaluateGame(player: Player) {
+        if let winnerCombination = hasWinningCombination([.topDiagonal, .bottomDiagonal, .corners], player: player) {
             showGameStateObservable?(winnerCombination)
         } else if playCount == Game.Constant.maxMoves {
-            showGameStateObservable?(Game.State.tie)
+            showGameStateObservable?(GameState.tie)
         }
     }
     
-    func hasWinningCombination(_ combination: Game.WinningCombination, player: Player) -> Game.State? {
-        for value in combination.locations where !player.locations.contains(value) {
-            return nil
+    func hasWinningCombination(_ combinations: [Game.WinningCombination], player: Player) -> GameState? {
+        for combination in combinations where combination.isWinner(playerMoves: player.moves) {
+            return GameState.winner(combination, player)
         }
-        return Game.State.winner(.topDiagonal, player)
+        return nil
     }
     
     func logPlay(selectedView: SelectedView) {
@@ -146,12 +135,12 @@ private extension MainViewModel {
         output.player2IconObservable?(player2.image)
         playCount = 0
         output.playerTurnObservable?(currentPlayer.turn.string)
-        player1.locations = []
-        player2.locations = []
+        player1.moves = []
+        player2.moves = []
     }
     
     func updatePlayerMoves(viewIdentifier: Int) {
-        currentPlayer.locations.append(viewIdentifier)
+        currentPlayer.moves.append(viewIdentifier)
     }
 }
 
@@ -161,14 +150,15 @@ extension MainViewModel: MainViewModelInput {
         reset()
     }
     
-    func tapped(isSelected: Bool, viewIdentifier: Int) {
+    func tapped(viewIdentifier: Int) {
         do {
             try isLocationValid(viewIdentifier)
             let selectedView = SelectedView(viewIdentifier: viewIdentifier,
                                             image: currentPlayer.image,
                                             isSelected: true)
+            let playerThatMove = currentPlayer
             logPlay(selectedView: selectedView)
-            evaluateGame()
+            evaluateGame(player: playerThatMove)
             
         } catch let error as Error {
             output.errorObservable?(error)
@@ -179,6 +169,6 @@ extension MainViewModel: MainViewModelInput {
     
     func tappedReset() {
         reset()
-        output.showGameStateObservable?(Game.State.reset)
+        output.showGameStateObservable?(GameState.reset)
     }
 }

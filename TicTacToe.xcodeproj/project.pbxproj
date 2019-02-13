@@ -20,6 +20,8 @@
 		46BA5777220157C10009C087 /* MarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BA5776220157C10009C087 /* MarkTests.swift */; };
 		46BA577A220158780009C087 /* UIImage+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BA5779220158780009C087 /* UIImage+App.swift */; };
 		46BA577C220158FE0009C087 /* MockMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BA577B220158FE0009C087 /* MockMainViewController.swift */; };
+		EE4977982214BED8001DB519 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4977972214BED8001DB519 /* Game.swift */; };
+		EE49779A2214C684001DB519 /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4977992214C684001DB519 /* GameTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		46BA5776220157C10009C087 /* MarkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkTests.swift; sourceTree = "<group>"; };
 		46BA5779220158780009C087 /* UIImage+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+App.swift"; sourceTree = "<group>"; };
 		46BA577B220158FE0009C087 /* MockMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMainViewController.swift; sourceTree = "<group>"; };
+		EE4977972214BED8001DB519 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		EE4977992214C684001DB519 /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,7 @@
 				46BA5774220157A90009C087 /* MainViewModelTests.swift */,
 				46BA5776220157C10009C087 /* MarkTests.swift */,
 				46BA577B220158FE0009C087 /* MockMainViewController.swift */,
+				EE4977992214C684001DB519 /* GameTests.swift */,
 			);
 			path = TicTacToeTests;
 			sourceTree = "<group>";
@@ -134,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				46BA576B220150770009C087 /* Player.swift */,
+				EE4977972214BED8001DB519 /* Game.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -274,6 +280,7 @@
 				4697465A2206164200C57175 /* ModuleBuilder.swift in Sources */,
 				46BA576A220150250009C087 /* MainViewModel.swift in Sources */,
 				46BA577A220158780009C087 /* UIImage+App.swift in Sources */,
+				EE4977982214BED8001DB519 /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +291,7 @@
 				46BA5777220157C10009C087 /* MarkTests.swift in Sources */,
 				46BA5775220157A90009C087 /* MainViewModelTests.swift in Sources */,
 				46BA577C220158FE0009C087 /* MockMainViewController.swift in Sources */,
+				EE49779A2214C684001DB519 /* GameTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

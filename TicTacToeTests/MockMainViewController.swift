@@ -18,7 +18,7 @@ class MockMainViewController: MainViewModelOutputObserver {
     var didCallPlayerTurnString: String?
     var didCallPlayCount: Int?
     var didCallSelectedView: MainViewModel.SelectedView?
-    var didCallGameEnded: MainViewModel.Game.State?
+    var didCallGameEnded: MainViewModel.GameState?
     var didCallResetAllLocations: Bool?
     var didCallErrorObservable: MainViewModel.Error?
     func bindViewModel(_ input: MainViewModelInput, output: inout MainViewModelOutput) {
@@ -50,7 +50,6 @@ class MockMainViewController: MainViewModelOutputObserver {
 
             case .reset:
                 self.didCallResetAllLocations = true
-                
             }
         }
         
