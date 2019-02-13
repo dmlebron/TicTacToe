@@ -31,15 +31,15 @@ class MainViewController: UIViewController {
 extension MainViewController: MainViewModelOutputObserver {
     func bindViewModel(_ input: MainViewModelInput, output: inout MainViewModelOutput) {
         self.viewModel = input
-        output.player1IconImage = { [weak self] (image) in
+        output.player1IconObservable = { [weak self] (image) in
             self?.player1IconImageView.image = image
         }
         
-        output.player2IconImage = { [weak self] (image) in
+        output.player2IconObservable = { [weak self] (image) in
             self?.player2IconImageView.image = image
         }
         
-        output.playerTurnString = { [weak self] (value) in
+        output.playerTurnObservable = { [weak self] (value) in
             self?.playerTurnLabel.text = value
         }
         
@@ -51,19 +51,23 @@ extension MainViewController: MainViewModelOutputObserver {
             self?.handleSelectedView(value)
         }
         
-        output.showGameEndedAlert = { [weak self] (value) in
-            let alert = UIAlertController(title: "Test", message: nil, preferredStyle: .alert)
-            let action = UIAlertAction(title: "Reset", style: .destructive, handler: { (_) in
-                self?.viewModel.tappedReset()
-            })
-            alert.addAction(action)
-            self?.present(alert, animated: true, completion: nil)
-        }
-        
-        output.resetAllLocations = {
-            for location in self.collection {
-                location.isSelected = false
-                location.image = nil
+        output.showGameStateObservable = { [weak self] (value) in
+            
+            switch value {
+            case .tie, .winner(_, _):
+                let alert = UIAlertController(title: "Test", message: nil, preferredStyle: .alert)
+                let action = UIAlertAction(title: "Reset", style: .destructive, handler: { (_) in
+                    self?.viewModel.tappedReset()
+                })
+                alert.addAction(action)
+                self?.present(alert, animated: true, completion: nil)
+                
+            case .reset:
+                guard let moves = self?.collection else { return }
+                for location in moves {
+                    location.isSelected = false
+                    location.image = nil
+                }
             }
         }
     }
