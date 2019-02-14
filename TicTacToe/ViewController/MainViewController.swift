@@ -59,32 +59,17 @@ extension MainViewController: MainViewModelOutputObserver {
             self?.handleSelectedView(value)
         }
         
-        output.showGameStateObservable = { [weak self] (value) in
-            let alert = UIAlertController(title: value.description, message: nil, preferredStyle: .alert)
-            let action = UIAlertAction(title: "Reset", style: .default, handler: { (_) in
-                self?.viewModel.tappedReset()
-            })
-            alert.addAction(action)
-            self?.present(alert, animated: true, completion: nil)
-            
-            
+        output.showGameStatusObservable = { [weak self] (value) in
+
             switch value {
-//            case .tie:
-//                let alert = UIAlertController(title: value.description, message: nil, preferredStyle: .alert)
-//                let action = UIAlertAction(title: "Reset", style: .default, handler: { (_) in
-//                    self?.viewModel.tappedReset()
-//                })
-//                alert.addAction(action)
-//                self?.present(alert, animated: true, completion: nil)
-//
-//            case .winner(_, let player):
-//                let alert = UIAlertController(title: value.description, message: nil, preferredStyle: .alert)
-//                let action = UIAlertAction(title: "Reset", style: .default, handler: { (_) in
-//                    self?.viewModel.tappedReset()
-//                })
-//                alert.addAction(action)
-//                self?.present(alert, animated: true, completion: nil)
-            case .tie, .winner(_, _): break
+            case .ended(let description):
+                let alert = UIAlertController(title: description, message: nil, preferredStyle: .alert)
+                let action = UIAlertAction(title: "Reset", style: .default, handler: { (_) in
+                    self?.viewModel.tappedReset()
+                })
+                alert.addAction(action)
+                self?.present(alert, animated: true, completion: nil)
+                
             case .reset:
                 guard let moves = self?.collection else { return }
                 for location in moves {

@@ -22,7 +22,7 @@ protocol MainViewModelOutput: class {
     var playCountObservable: ((Int) -> Void)? { get set }
     var errorObservable: ((MainViewModel.Error) -> Void)? { get set }
     var selectedViewObservable: ((MainViewController.SelectedView?) -> Void)? { get set }
-    var showGameStateObservable: ((MainViewModel.GameState) -> Void)? { get set }
+    var showGameStatusObservable: ((MainViewModel.GameStatus) -> Void)? { get set }
 }
 
 protocol MainViewModelOutputObserver {
@@ -33,20 +33,18 @@ final class MainViewModel: MainViewModelOutput {
     typealias SelectedView = MainViewController.SelectedView
     
     enum GameState: Equatable {
-        case winner(Game.WinningCombination, Player)
         case tie
-        case reset
-        
         var description: String {
             switch self {
-            case .winner(_, let player):
-                return "\(player.turn.string) Won!"
             case .tie:
                 return "No Winner"
-            case .reset:
-                return ""
             }
         }
+    }
+    
+    enum GameStatus: Equatable {
+        case ended(String)
+        case reset
     }
     
     var playerTurnObservable: ((String) -> Void)?
@@ -55,7 +53,7 @@ final class MainViewModel: MainViewModelOutput {
     var errorObservable: ((Error) -> Void)?
     var playCountObservable: ((Int) -> Void)?
     var selectedViewObservable: ((SelectedView?) -> Void)?
-    var showGameStateObservable: ((GameState) -> Void)?
+    var showGameStatusObservable: ((GameStatus) -> Void)?
     
     private var playCount = 0 {
         didSet {
@@ -109,18 +107,11 @@ private extension MainViewModel {
     }
     
     func evaluateGame(player: Player) {
-        if let winnerCombination = hasWinningCombination([.topDiagonal, .bottomDiagonal, .corners], player: player) {
-            showGameStateObservable?(winnerCombination)
+        if let winningString = Game.evaluate(player: player) {
+            showGameStatusObservable?(GameStatus.ended(winningString))
         } else if playCount == Game.Constant.maxMoves {
-            showGameStateObservable?(GameState.tie)
+            showGameStatusObservable?(GameStatus.ended(GameState.tie.description))
         }
-    }
-    
-    func hasWinningCombination(_ combinations: [Game.WinningCombination], player: Player) -> GameState? {
-        for combination in combinations where combination.isWinner(playerMoves: player.moves) {
-            return GameState.winner(combination, player)
-        }
-        return nil
     }
     
     func logPlay(selectedView: SelectedView) {
@@ -169,6 +160,6 @@ extension MainViewModel: MainViewModelInput {
     
     func tappedReset() {
         reset()
-        output.showGameStateObservable?(GameState.reset)
+        output.showGameStatusObservable?(GameStatus.reset)
     }
 }

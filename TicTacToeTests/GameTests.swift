@@ -39,4 +39,22 @@ class GameTests: XCTestCase {
         let moves = [3,8,5,6,3,7,8,12,9]
         XCTAssertTrue(winningCombination.isWinner(playerMoves: moves))
     }
+    
+    func test_Game_Evaluate_FirstPlayer_Win() {
+        let player = Player(mark: .x, turn: .firstPlayer)
+        let moves = [3,8,5,6,3,7,8,12,9]
+        player.moves = moves
+        let resultString = Game.evaluate(player: player)
+        
+        XCTAssertTrue(resultString == "First Player Wins")
+    }
+    
+    func test_Game_Evaluate_SecondPlayer_Win() {
+        let player = Player(mark: .x, turn: .secondPlayer)
+        let moves = [3,8,5,6,3,7,8,12,9]
+        player.moves = moves
+        let resultString = Game.evaluate(player: player)
+        
+        XCTAssertTrue(resultString == "Second Player Wins")
+    }
 }

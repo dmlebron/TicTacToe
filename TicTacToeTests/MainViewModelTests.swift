@@ -97,12 +97,12 @@ class MainViewModelTests: XCTestCase {
         for move in 0...Game.Constant.maxMoves - 1 {
             viewModel.tapped(viewIdentifier: move)
         }
-        let gameEnded = mockViewController.didCallGameEnded!
+        let gameStatus = mockViewController.didCallGameStatus!
         
         XCTAssertTrue(player1.moves.count == 8)
         XCTAssertTrue(player2.moves.count == 8)
         XCTAssertNil(mockViewController.didCallErrorObservable)
-        XCTAssertTrue(gameEnded == MainViewModel.GameState.tie)
+        XCTAssertTrue(gameStatus == MainViewModel.GameStatus.ended(MainViewModel.GameState.tie.description))
         
     }
 
@@ -124,17 +124,21 @@ class MainViewModelTests: XCTestCase {
             }
         }
         
-        let gameEnded = mockViewController.didCallGameEnded
-        XCTAssertTrue(gameEnded == MainViewModel.GameState.winner(.topDiagonal, player1))
+        let gameStatus = mockViewController.didCallGameStatus
+        XCTAssertTrue(gameStatus == MainViewModel.GameStatus.ended("First Player Wins"))
     }
     
     func test_Reset_Clean() {
         for move in 0...15 {
             viewModel.tapped(viewIdentifier: move)
         }
-        _ = mockViewController.didCallGameEnded!
+        
+        XCTAssertTrue(player1.moves.count > 0)
+        XCTAssertTrue(player2.moves.count > 0)
+        
         viewModel.tappedReset()
-        XCTAssertTrue(mockViewController.didCallResetAllLocations!)
+        let gameStatus = mockViewController.didCallGameStatus
+        XCTAssertTrue(gameStatus == MainViewModel.GameStatus.reset)
         XCTAssertTrue(player1.moves.count == 0)
         XCTAssertTrue(player2.moves.count == 0)
     }

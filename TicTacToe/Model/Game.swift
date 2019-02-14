@@ -40,6 +40,17 @@ struct Game {
             }
         }
     }
+    
+    static func evaluate(player: Player) -> String? {
+        let combinations: [WinningCombination]  = [.topDiagonal, .corners, .bottomDiagonal]
+        
+        for combination in combinations {
+            if combination.isWinner(playerMoves: player.moves) {
+                return "\(player.description) Wins"
+            }
+        }
+        return nil
+    }
 }
 
 private extension Game.WinningCombination {
