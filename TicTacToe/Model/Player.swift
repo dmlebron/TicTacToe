@@ -39,7 +39,7 @@ final class Player {
     }
     
     let mark: Mark
-    let moves: [Moves] = []
+    var moves: Moves = []
     let turn: Turn
     
     init(mark: Mark, turn: Turn) {
@@ -49,6 +49,15 @@ final class Player {
     
     var image: UIImage {
         return mark.image!
+    }
+}
+
+extension Player: CustomStringConvertible {
+    var description: String {
+        switch self.turn {
+        case .firstPlayer: return "First Player"
+        case .secondPlayer: return "Second Player"
+        }
     }
 }
 
