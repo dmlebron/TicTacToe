@@ -10,6 +10,66 @@ import XCTest
 @testable import TicTacToe
 
 class GameTests: XCTestCase {
+    func test_Init_SameMarks_Throws() throws {
+        let player1 = Player(mark: .o, turn: .firstPlayer)
+        let player2 = Player(mark: .o, turn: .secondPlayer)
+        
+        XCTAssertThrowsError(try Game(player1: player1, player2: player2))
+    }
+    
+    func test_Init_NoThrow() throws {
+        let player1 = Player(mark: .o, turn: .firstPlayer)
+        let player2 = Player(mark: .x, turn: .secondPlayer)
+        
+        let game = try Game(player1: player1, player2: player2)
+        XCTAssertTrue(game.playCount == 0)
+        XCTAssertTrue(player1.moves.count == 0)
+        XCTAssertTrue(player2.moves.count == 0)
+    }
+    
+    func test_Move_Player1_LogsMove() throws {
+        let player1 = Player(mark: .o, turn: .firstPlayer)
+        let player2 = Player(mark: .x, turn: .secondPlayer)
+        var game = try Game(player1: player1, player2: player2)
+        let nextTurn = game.move(0, turn: .firstPlayer)
+        
+        XCTAssertTrue(game.playCount == 1)
+        XCTAssertTrue(player1.moves.count == 1)
+        XCTAssertTrue(nextTurn == .secondPlayer)
+    }
+    
+    func test_Move_Player2_LogsMove() throws {
+        let player1 = Player(mark: .o, turn: .firstPlayer)
+        let player2 = Player(mark: .x, turn: .secondPlayer)
+        var game = try Game(player1: player1, player2: player2)
+        let nextTurn = game.move(0, turn: .secondPlayer)
+        
+        XCTAssertTrue(game.playCount == 1)
+        XCTAssertTrue(player2.moves.count == 1)
+        XCTAssertTrue(nextTurn == .firstPlayer)
+    }
+    
+    func test_Reset() throws {
+        let player1 = Player(mark: .o, turn: .firstPlayer)
+        let player2 = Player(mark: .x, turn: .secondPlayer)
+        var game = try Game(player1: player1, player2: player2)
+        _ = game.move(0, turn: .firstPlayer)
+        game.reset()
+        
+        XCTAssertTrue(game.playCount == 0)
+        XCTAssertTrue(player1.moves.count == 0)
+    }
+    
+//    func test_Move_MaxMoves() throws {
+//        let player1 = Player(mark: .o, turn: .firstPlayer)
+//        let player2 = Player(mark: .x, turn: .secondPlayer)
+//
+//        var game = try Game(player1: player1, player2: player2)
+//        game.move(0, turn: .secondPlayer)
+//        XCTAssertTrue(game.playCount == 1)
+//        XCTAssertTrue(player2.moves.count == 1)
+//    }
+    
     func test_WinningCombination_TopDiagonal_Win() {
         let winningCombination = Game.WinningCombination.topDiagonal
         let moves = [2,4,3,7,8,10,0,15,5]
@@ -56,5 +116,19 @@ class GameTests: XCTestCase {
         let resultString = Game.evaluate(player: player)
         
         XCTAssertTrue(resultString == "Second Player Wins")
+    }
+    
+    func test_WinningCombination_FirstSquare_Win() {
+        let winningCombination = Game.WinningCombination.firstSquare
+        let moves = [0,1,3,7,4,5,9]
+        
+        XCTAssertTrue(winningCombination.isWinner(playerMoves: moves))
+    }
+    
+    func test_WinningCombination_FifthSquare_Win() {
+        let winningCombination = Game.WinningCombination.fifthSquare
+        let moves = [10,6,3,7,4,5,9]
+        
+        XCTAssertTrue(winningCombination.isWinner(playerMoves: moves))
     }
 }
