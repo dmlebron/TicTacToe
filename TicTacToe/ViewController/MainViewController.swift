@@ -8,6 +8,14 @@
 
 import UIKit
 
+extension MainViewController {
+    struct SelectedView {
+        let viewIdentifier: Int
+        let image: UIImage?
+        let isSelected: Bool
+    }
+}
+
 class MainViewController: UIViewController {
 
     // TODO: rename
@@ -17,7 +25,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var player1Label: UILabel!
     @IBOutlet weak var player2Label: UILabel!
     @IBOutlet weak var playerTurnLabel: UILabel!
-    var viewModel: MainViewModelInput!
+    private var viewModel: MainViewModelInput!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,15 +39,15 @@ class MainViewController: UIViewController {
 extension MainViewController: MainViewModelOutputObserver {
     func bindViewModel(_ input: MainViewModelInput, output: inout MainViewModelOutput) {
         self.viewModel = input
-        output.player1IconImage = { [weak self] (image) in
+        output.player1IconObservable = { [weak self] (image) in
             self?.player1IconImageView.image = image
         }
         
-        output.player2IconImage = { [weak self] (image) in
+        output.player2IconObservable = { [weak self] (image) in
             self?.player2IconImageView.image = image
         }
         
-        output.playerTurnString = { [weak self] (value) in
+        output.playerTurnObservable = { [weak self] (value) in
             self?.playerTurnLabel.text = value
         }
         
@@ -50,17 +58,37 @@ extension MainViewController: MainViewModelOutputObserver {
         output.selectedViewObservable = { [weak self] (value) in
             self?.handleSelectedView(value)
         }
+        
+        output.showGameStatusObservable = { [weak self] (value) in
+
+            switch value {
+            case .ended(let description):
+                let alert = UIAlertController(title: description, message: nil, preferredStyle: .alert)
+                let action = UIAlertAction(title: "Reset", style: .default, handler: { (_) in
+                    self?.viewModel.tappedReset()
+                })
+                alert.addAction(action)
+                self?.present(alert, animated: true, completion: nil)
+                
+            case .reset:
+                guard let moves = self?.collection else { return }
+                for location in moves {
+                    location.isSelected = false
+                    location.image = nil
+                }
+            }
+        }
     }
 }
 
 @objc extension MainViewController {
     func tapped(customView: CustomView) {
-        viewModel.tapped(isSelected: customView.isSelected, viewIdentifier: customView.identifier)
+        viewModel.tapped(viewIdentifier: customView.identifier)
     }
 }
 
 private extension MainViewController {
-    func handleSelectedView(_ selectedView: MainViewModel.SelectedView?) {
+    func handleSelectedView(_ selectedView: SelectedView?) {
         guard let selectedView = selectedView else { return }
         let view = collection
             .filter { $0.identifier == selectedView.viewIdentifier }

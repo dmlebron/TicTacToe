@@ -39,7 +39,7 @@ final class Player {
     }
     
     let mark: Mark
-    var locations: Moves = []
+    var moves: Moves = []
     let turn: Turn
     
     init(mark: Mark, turn: Turn) {
@@ -52,9 +52,18 @@ final class Player {
     }
 }
 
+extension Player: CustomStringConvertible {
+    var description: String {
+        switch self.turn {
+        case .firstPlayer: return "First Player"
+        case .secondPlayer: return "Second Player"
+        }
+    }
+}
+
 extension Player: Equatable {
     static func == (lhs: Player, rhs: Player) -> Bool {
-        guard lhs.mark == rhs.mark, lhs.locations == rhs.locations else { return false }
+        guard lhs.mark == rhs.mark, lhs.moves == rhs.moves else { return false }
         return true
     }
 }
