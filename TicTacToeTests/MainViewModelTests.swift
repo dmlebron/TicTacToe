@@ -102,7 +102,7 @@ class MainViewModelTests: XCTestCase {
         XCTAssertTrue(player1.moves.count == 8)
         XCTAssertTrue(player2.moves.count == 8)
         XCTAssertNil(mockViewController.didCallErrorObservable)
-        XCTAssertTrue(gameStatus == MainViewModel.GameStatus.ended(MainViewModel.GameState.tie.description))
+        XCTAssertTrue(gameStatus == MainViewModel.GameStatus.ended(MainViewModel.Result.tie))
         
     }
 
@@ -125,7 +125,7 @@ class MainViewModelTests: XCTestCase {
         }
         
         let gameStatus = mockViewController.didCallGameStatus
-        XCTAssertTrue(gameStatus == MainViewModel.GameStatus.ended("First Player Wins"))
+        XCTAssertTrue(gameStatus == MainViewModel.GameStatus.ended(.winner("First Player Wins")))
     }
     
     func test_Reset_Clean() {

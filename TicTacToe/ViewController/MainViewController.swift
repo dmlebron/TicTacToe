@@ -62,8 +62,8 @@ extension MainViewController: MainViewModelOutputObserver {
         output.showGameStatusObservable = { [weak self] (value) in
 
             switch value {
-            case .ended(let description):
-                let alert = UIAlertController(title: description, message: nil, preferredStyle: .alert)
+            case .ended(let result):
+                let alert = UIAlertController(title: result.description, message: nil, preferredStyle: .alert)
                 let action = UIAlertAction(title: "Reset", style: .default, handler: { (_) in
                     self?.viewModel.tappedReset()
                 })

@@ -32,18 +32,23 @@ protocol MainViewModelOutputObserver {
 final class MainViewModel: MainViewModelOutput {
     typealias SelectedView = MainViewController.SelectedView
     
-    enum GameState: Equatable {
+    enum Result: Equatable {
         case tie
+        case winner(String)
+        
         var description: String {
             switch self {
             case .tie:
                 return "No Winner"
+                
+            case .winner(let value):
+                return value
             }
         }
     }
     
     enum GameStatus: Equatable {
-        case ended(String)
+        case ended(Result)
         case reset
     }
     
@@ -108,9 +113,9 @@ private extension MainViewModel {
     
     func evaluateGame(player: Player) {
         if let winningString = Game.evaluate(player: player) {
-            showGameStatusObservable?(GameStatus.ended(winningString))
+            showGameStatusObservable?(GameStatus.ended(.winner(winningString)))
         } else if playCount == Game.Constant.maxMoves {
-            showGameStatusObservable?(GameStatus.ended(GameState.tie.description))
+            showGameStatusObservable?(GameStatus.ended(.tie))
         }
     }
     
